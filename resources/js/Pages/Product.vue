@@ -5,7 +5,7 @@
     class=" relative flex
       items-top
       justify-center
-      min-h-screen
+
       bg-gray-100
       dark:bg-gray-900
       sm:items-center sm:pt-0
@@ -40,7 +40,7 @@
       </div>
 
       <p class="mx-auto lg:w-1/4 flex flex-row justify-between pb-5 ">
-        <Link :href="route('login')" class="text-sm text-gray-700 underline">
+        <Link :href="route('home')" class="text-sm text-pink-700 underline">
           Shop
         </Link>
 
@@ -58,99 +58,50 @@
           About
         </Link>
       </p>
-      <section class="text-gray-600 body-font bg-pink-50">
+
+    </div>
+  </div>
+  <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
-    <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-      <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">Already Have your <b class=" text-pink-300">Mysterious Gift</b>? Let us deliver it for you by the best way.</h1>
-      <button class="flex-shrink-0 text-white bg-pink-400 border-0 py-2 px-8 focus:outline-none hover:bg-pink-500 rounded text-lg mt-10 sm:mt-0">Process</button>
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+        <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
+        <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">Animated Night Hill Illustrations</h1>
+        <div class="flex mb-4">
+          <a class="flex-grow text-pink-400 border-b-2 border-pink-400 py-2 text-lg px-1">Description</a>
+          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Reviews</a>
+          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Details</a>
+        </div>
+        <p class="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam inxigo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p>
+        <div class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500">Color</span>
+          <span class="ml-auto text-gray-900">Blue</span>
+        </div>
+        <div class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500">Size</span>
+          <span class="ml-auto text-gray-900">Medium</span>
+        </div>
+        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+          <span class="text-gray-500">Quantity</span>
+          <span class="ml-auto text-gray-900">4</span>
+        </div>
+        <div class="flex">
+          <span class="title-font font-medium text-2xl text-gray-900">$58.00</span>
+          <button class="flex ml-auto text-white bg-pink-400 border-0 py-2 px-6 focus:outline-none hover:bg-pink-500 rounded">Add To Cart</button>
+          <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
     </div>
   </div>
 </section>
-      <section class="text-gray-600 body-font bg-gray-50">
-        <div class="container px-5 py-24 mx-auto">
-          <div class="flex flex-wrap -m-4">
-            <div v-for="index in 9" :key="index" class="lg:w-1/3 md:w-1/2 p-4 w-full">
-              <a class="block relative h-48 rounded overflow-hidden">
-                <img
-                  alt="ecommerce"
-                  class="object-cover object-center w-full h-full block"
-                  src="https://dummyimage.com/420x260"
-                />
-              </a>
-              <div class="mt-4">
-                <h3
-                  class="text-gray-500 text-xs tracking-widest title-font mb-1">
-                  CATEGORY
-                </h3>
-                <Link :href="route('product.view')" class="text-pink-800 title-font text-lg font-medium">
-                  The Catalyzer
-                </Link>
-                <p class="mt-1">$16.00</p>
-              </div>
-            </div>
 
-          </div>
-        </div>
 
-        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-  <div class="flex-1 flex justify-between sm:hidden">
-    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-      Previous
-    </a>
-    <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-      Next
-    </a>
-  </div>
-  <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-    <div>
-      <p class="text-sm text-gray-700">
-        Showing
-        <span class="font-medium">1</span>
-        to
-        <span class="font-medium">9</span>
-        of
-        <span class="font-medium">30</span>
-        results
-      </p>
-    </div>
-    <div>
-      <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-pink-50">
-          <span class="sr-only">Previous</span>
-          <!-- Heroicon name: solid/chevron-left -->
-          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-        </a>
-        <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
-        <a href="#" aria-current="page" class="z-10 bg-pink-50 border-pink-500 text-pink-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-          1
-        </a>
-        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-pink-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-          2
-        </a>
-        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-pink-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium">
-          3
-        </a>
-        <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-          ...
-        </span>
-
-        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-pink-50">
-          <span class="sr-only">Next</span>
-          <!-- Heroicon name: solid/chevron-right -->
-          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </nav>
-    </div>
-  </div>
-</div>
-      </section>
-    </div>
-  </div>
-  <footer class="text-gray-600 body-font">
+  <footer class="text-gray-600 body-font border-t">
   <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
     <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-pink-400 rounded-full" viewBox="0 0 24 24">

@@ -15,14 +15,36 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('/cart', function () {
+    sleep(1);
+    return Inertia::render('Cart', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('cart.show');
+
+Route::get('/product', function () {
+    sleep(1);
+    return Inertia::render('Product', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('product.view');
+
+
 Route::get('/', function () {
+    sleep(1);
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
