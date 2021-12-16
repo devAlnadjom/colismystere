@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,15 +17,11 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/cart', function () {
-    sleep(1);
-    return Inertia::render('Cart', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('cart.show');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.store');
+Route::post('/cart/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'removeCart'])->name('cart.remove');
+Route::post('/cart/clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.show');
 
 Route::get('/product/{slug}/{id}',[ShopController::class, 'viewone'] )->name('product.view');
 

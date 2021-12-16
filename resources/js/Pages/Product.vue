@@ -219,10 +219,22 @@ export default {
     phpVersion: String,
     product: Object,
   },
+  data() {
+    return {
+      form: this.$inertia.form({
+        id: this.product.id,
+        name: this.product.name,
+        price: this.product.price,
+        quantity:1,
+      }),
+    };
+  },
 
   methods :{
       addTocart(ide){
-          console.log("element :"+ide+" added to cart");
+
+          this.form.post(this.route('cart.store'));
+          //console.log("element :"+this.form+" added to cart");
       }
   }
 };

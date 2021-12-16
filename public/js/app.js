@@ -20039,7 +20039,9 @@ __webpack_require__.r(__webpack_exports__);
     canLogin: Boolean,
     canRegister: Boolean,
     laravelVersion: String,
-    phpVersion: String
+    phpVersion: String,
+    cart: Object,
+    cartTotal: Number
   }
 });
 
@@ -20094,9 +20096,19 @@ __webpack_require__.r(__webpack_exports__);
     phpVersion: String,
     product: Object
   },
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        id: this.product.id,
+        name: this.product.name,
+        price: this.product.price,
+        quantity: 1
+      })
+    };
+  },
   methods: {
     addTocart: function addTocart(ide) {
-      console.log("element :" + ide + " added to cart");
+      this.form.post(this.route('cart.store')); //console.log("element :"+this.form+" added to cart");
     }
   }
 });
@@ -22220,7 +22232,92 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" About ");
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section class=\"text-gray-700 body-font overflow-hidden py-10\" data-v-f07b3b6e><div class=\"flex flex-col max-w-5xl mx-auto p-6 space-y-4 sm:p-10 bg-coolGray-50 text-coolGray-800\" data-v-f07b3b6e><h2 class=\"text-2xl font-semibold\" data-v-f07b3b6e>Your cart</h2><hr data-v-f07b3b6e><ul class=\"flex flex-col divide-y divide-coolGray-300\" data-v-f07b3b6e><li class=\"flex flex-col py-6 sm:flex-row sm:justify-between\" data-v-f07b3b6e><div class=\"flex w-full space-x-2 sm:space-x-4\" data-v-f07b3b6e><img class=\"flex-shrink-0 object-cover w-20 h-20 border-transparent rounded outline-none sm:w-32 sm:h-32 bg-coolGray-500\" src=\"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80\" alt=\"Polaroid camera\" data-v-f07b3b6e><div class=\"flex flex-col justify-between w-full pb-4\" data-v-f07b3b6e><div class=\"flex justify-between w-full pb-2 space-x-2\" data-v-f07b3b6e><div class=\"space-y-1\" data-v-f07b3b6e><h3 class=\"text-lg font-semibold leading-snug sm:pr-8\" data-v-f07b3b6e>Polaroid camera</h3><p class=\"text-sm text-coolGray-600\" data-v-f07b3b6e>Classic</p></div><div class=\"text-right\" data-v-f07b3b6e><p class=\"text-lg font-semibold\" data-v-f07b3b6e>59.99€</p><p class=\"text-sm line-through text-coolGray-400\" data-v-f07b3b6e>75.50€</p></div></div><div class=\"flex text-sm divide-x\" data-v-f07b3b6e><button type=\"button\" class=\"flex items-center px-2 py-1 pl-0 space-x-1\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"w-4 h-4 fill-current\" data-v-f07b3b6e><path d=\"M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z\" data-v-f07b3b6e></path><rect width=\"32\" height=\"200\" x=\"168\" y=\"216\" data-v-f07b3b6e></rect><rect width=\"32\" height=\"200\" x=\"240\" y=\"216\" data-v-f07b3b6e></rect><rect width=\"32\" height=\"200\" x=\"312\" y=\"216\" data-v-f07b3b6e></rect><path d=\"M328,88V40c0-13.458-9.488-24-21.6-24H205.6C193.488,16,184,26.542,184,40V88H64v32H448V88ZM216,48h80V88H216Z\" data-v-f07b3b6e></path></svg><span data-v-f07b3b6e>Remove</span></button><button type=\"button\" class=\"flex items-center px-2 py-1 space-x-1\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"w-4 h-4 fill-current\" data-v-f07b3b6e><path d=\"M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z\" data-v-f07b3b6e></path></svg><span data-v-f07b3b6e>Add to favorites</span></button></div></div></div></li><li class=\"flex flex-col py-6 sm:flex-row sm:justify-between\" data-v-f07b3b6e><div class=\"flex w-full space-x-2 sm:space-x-4\" data-v-f07b3b6e><img class=\"flex-shrink-0 object-cover w-20 h-20 border-transparent rounded outline-none sm:w-32 sm:h-32 bg-coolGray-500\" src=\"https://images.unsplash.com/photo-1504274066651-8d31a536b11a?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=675&amp;q=80\" alt=\"Replica headphones\" data-v-f07b3b6e><div class=\"flex flex-col justify-between w-full pb-4\" data-v-f07b3b6e><div class=\"flex justify-between w-full pb-2 space-x-2\" data-v-f07b3b6e><div class=\"space-y-1\" data-v-f07b3b6e><h3 class=\"text-lg font-semibold leading-snug sm:pr-8\" data-v-f07b3b6e>Replica headphones</h3><p class=\"text-sm text-coolGray-600\" data-v-f07b3b6e>White</p></div><div class=\"text-right\" data-v-f07b3b6e><p class=\"text-lg font-semibold\" data-v-f07b3b6e>99.95€</p><p class=\"text-sm line-through text-coolGray-400\" data-v-f07b3b6e>150€</p></div></div><div class=\"flex text-sm divide-x\" data-v-f07b3b6e><button type=\"button\" class=\"flex items-center px-2 py-1 pl-0 space-x-1\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"w-4 h-4 fill-current\" data-v-f07b3b6e><path d=\"M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z\" data-v-f07b3b6e></path><rect width=\"32\" height=\"200\" x=\"168\" y=\"216\" data-v-f07b3b6e></rect><rect width=\"32\" height=\"200\" x=\"240\" y=\"216\" data-v-f07b3b6e></rect><rect width=\"32\" height=\"200\" x=\"312\" y=\"216\" data-v-f07b3b6e></rect><path d=\"M328,88V40c0-13.458-9.488-24-21.6-24H205.6C193.488,16,184,26.542,184,40V88H64v32H448V88ZM216,48h80V88H216Z\" data-v-f07b3b6e></path></svg><span data-v-f07b3b6e>Remove</span></button><button type=\"button\" class=\"flex items-center px-2 py-1 space-x-1\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"w-4 h-4 fill-current\" data-v-f07b3b6e><path d=\"M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z\" data-v-f07b3b6e></path></svg><span data-v-f07b3b6e>Add to favorites</span></button></div></div></div></li></ul><div class=\"space-y-1 text-right\" data-v-f07b3b6e><p data-v-f07b3b6e>Total amount: <span class=\"font-semibold text-pink-800\" data-v-f07b3b6e>357 €</span></p><p class=\"text-sm text-coolGray-600\" data-v-f07b3b6e>Not including taxes and shipping costs</p></div><div class=\"flex justify-end space-x-4\" data-v-f07b3b6e><button type=\"button\" class=\"px-6 py-2 border rounded-md border-violet-600\" data-v-f07b3b6e>Back <span class=\"sr-only sm:not-sr-only\" data-v-f07b3b6e>to shop</span></button><button type=\"button\" class=\"px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400\" data-v-f07b3b6e><span class=\"sr-only sm:not-sr-only\" data-v-f07b3b6e>Continue to</span>Checkout </button></div></div></section><footer class=\"text-gray-600 body-font border-t\" data-v-f07b3b6e><div class=\"container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col\" data-v-f07b3b6e><a class=\"flex title-font font-medium items-center md:justify-start justify-center text-gray-900\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-10 h-10 text-white p-2 bg-pink-400 rounded-full\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path d=\"M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5\" data-v-f07b3b6e></path></svg><span class=\"ml-3 text-xl\" data-v-f07b3b6e>Colis Mystere</span></a><p class=\"text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4 text-pipink04\" data-v-f07b3b6e>© 2020 Colis_Mystere — <a href=\"https://twitter.com/knyttneve\" class=\"text-pink-800 ml-1\" rel=\"noopener noreferrer\" target=\"_blank\" data-v-f07b3b6e>@knyttneve</a></p><span class=\"inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start\" data-v-f07b3b6e><a class=\"text-pink-400\" data-v-f07b3b6e><svg fill=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path d=\"M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z\" data-v-f07b3b6e></path></svg></a><a class=\"ml-3 text-pink-400\" data-v-f07b3b6e><svg fill=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path d=\"M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z\" data-v-f07b3b6e></path></svg></a><a class=\"ml-3 text-pink-400\" data-v-f07b3b6e><svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\" data-v-f07b3b6e></rect><path d=\"M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01\" data-v-f07b3b6e></path></svg></a><a class=\"ml-3 text-pink-400\" data-v-f07b3b6e><svg fill=\"currentColor\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"0\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path stroke=\"none\" d=\"M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z\" data-v-f07b3b6e></path><circle cx=\"4\" cy=\"4\" r=\"2\" stroke=\"none\" data-v-f07b3b6e></circle></svg></a></span></div></footer>", 2);
+var _hoisted_12 = {
+  "class": "text-gray-700 body-font overflow-hidden py-10"
+};
+var _hoisted_13 = {
+  "class": "flex flex-col max-w-5xl mx-auto p-6 space-y-4 sm:p-10 bg-coolGray-50 text-coolGray-800"
+};
+
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    "class": "text-2xl font-semibold"
+  }, "Your cart", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_16 = {
+  "class": "flex flex-col py-6 sm:flex-row sm:justify-between"
+};
+var _hoisted_17 = {
+  "class": "flex w-full space-x-2 sm:space-x-4"
+};
+
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "flex-shrink-0 object-cover w-20 h-20 border-transparent rounded outline-none sm:w-32 sm:h-32 bg-coolGray-500",
+    src: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
+    alt: "Polaroid camera"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_19 = {
+  "class": "flex flex-col justify-between w-full pb-4"
+};
+var _hoisted_20 = {
+  "class": "flex justify-between w-full pb-2 space-x-2"
+};
+var _hoisted_21 = {
+  "class": "space-y-1"
+};
+var _hoisted_22 = {
+  "class": "text-lg font-semibold leading-snug sm:pr-8"
+};
+var _hoisted_23 = {
+  "class": "text-sm text-coolGray-600"
+};
+var _hoisted_24 = {
+  "class": "text-right"
+};
+var _hoisted_25 = {
+  "class": "text-lg font-semibold"
+};
+var _hoisted_26 = {
+  "class": "text-sm text-pink-400"
+};
+
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex text-sm divide-x\" data-v-f07b3b6e><button type=\"button\" class=\"flex items-center px-2 py-1 pl-0 space-x-1\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"w-4 h-4 fill-current\" data-v-f07b3b6e><path d=\"M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z\" data-v-f07b3b6e></path><rect width=\"32\" height=\"200\" x=\"168\" y=\"216\" data-v-f07b3b6e></rect><rect width=\"32\" height=\"200\" x=\"240\" y=\"216\" data-v-f07b3b6e></rect><rect width=\"32\" height=\"200\" x=\"312\" y=\"216\" data-v-f07b3b6e></rect><path d=\"M328,88V40c0-13.458-9.488-24-21.6-24H205.6C193.488,16,184,26.542,184,40V88H64v32H448V88ZM216,48h80V88H216Z\" data-v-f07b3b6e></path></svg><span data-v-f07b3b6e>Remove</span></button><button type=\"button\" class=\"flex items-center px-2 py-1 space-x-1\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"w-4 h-4 fill-current\" data-v-f07b3b6e><path d=\"M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z\" data-v-f07b3b6e></path></svg><span data-v-f07b3b6e>Add to favorites</span></button></div>", 1);
+
+var _hoisted_28 = {
+  "class": "space-y-1 text-right"
+};
+
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Total amount: ");
+
+var _hoisted_30 = {
+  "class": "font-semibold text-pink-800"
+};
+
+var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    "class": "text-sm text-coolGray-600"
+  }, "Not inclouding taxes and shipping costs", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex justify-end space-x-4\" data-v-f07b3b6e><button type=\"button\" class=\"px-6 py-2 border rounded-md border-violet-600\" data-v-f07b3b6e>Back <span class=\"sr-only sm:not-sr-only\" data-v-f07b3b6e>to shop</span></button><button type=\"button\" class=\"px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400\" data-v-f07b3b6e><span class=\"sr-only sm:not-sr-only\" data-v-f07b3b6e>Continue to</span>Checkout </button></div>", 1);
+
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<footer class=\"text-gray-600 body-font border-t\" data-v-f07b3b6e><div class=\"container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col\" data-v-f07b3b6e><a class=\"flex title-font font-medium items-center md:justify-start justify-center text-gray-900\" data-v-f07b3b6e><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-10 h-10 text-white p-2 bg-pink-400 rounded-full\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path d=\"M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5\" data-v-f07b3b6e></path></svg><span class=\"ml-3 text-xl\" data-v-f07b3b6e>Colis Mystere</span></a><p class=\"text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4 text-pipink04\" data-v-f07b3b6e>© 2020 Colis_Mystere — <a href=\"https://twitter.com/knyttneve\" class=\"text-pink-800 ml-1\" rel=\"noopener noreferrer\" target=\"_blank\" data-v-f07b3b6e>@knyttneve</a></p><span class=\"inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start\" data-v-f07b3b6e><a class=\"text-pink-400\" data-v-f07b3b6e><svg fill=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path d=\"M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z\" data-v-f07b3b6e></path></svg></a><a class=\"ml-3 text-pink-400\" data-v-f07b3b6e><svg fill=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path d=\"M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z\" data-v-f07b3b6e></path></svg></a><a class=\"ml-3 text-pink-400\" data-v-f07b3b6e><svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\" data-v-f07b3b6e></rect><path d=\"M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01\" data-v-f07b3b6e></path></svg></a><a class=\"ml-3 text-pink-400\" data-v-f07b3b6e><svg fill=\"currentColor\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"0\" class=\"w-5 h-5\" viewBox=\"0 0 24 24\" data-v-f07b3b6e><path stroke=\"none\" d=\"M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z\" data-v-f07b3b6e></path><circle cx=\"4\" cy=\"4\" r=\"2\" stroke=\"none\" data-v-f07b3b6e></circle></svg></a></span></div></footer>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
@@ -22307,7 +22404,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])])])]), _hoisted_12], 64
+  , ["href"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, _hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.cart, function (product) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", {
+      key: product.index,
+      "class": "flex flex-col divide-y divide-coolGray-300"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.name), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.quantity) + " Items", 1
+    /* TEXT */
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.price / 100) + "$", 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.quantity * product.price / 100) + " €", 1
+    /* TEXT */
+    )])]), _hoisted_27])])])]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cartTotal / 100) + "$", 1
+  /* TEXT */
+  )]), _hoisted_31]), _hoisted_32])]), _hoisted_33], 64
   /* STABLE_FRAGMENT */
   );
 }
