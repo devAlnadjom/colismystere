@@ -73,7 +73,12 @@
 					<div class="flex justify-between w-full pb-2 space-x-2">
 						<div class="space-y-1">
 							<h3 class="text-lg font-semibold leading-snug sm:pr-8">{{product.name}}</h3>
-							<p class="text-sm text-coolGray-600">{{product.quantity}} Items</p>
+							<p class="text-sm text-coolGray-600 flex flex-row">
+
+                            <input type="number" min="1" v-model="product.quantity" @change="updateCart(product.id, $event.target.value)" class=" w-20 mr-2 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:bg-transparent focus:ring-2 focus:ring-pink-200 focus:border-pink-500 text-base outline-none text-gray-700 py-1 px-3 leading-4 transition-colors duration-200 ease-in-out">
+                            <span class=" leading-7">Items</span>
+                            </p>
+
 						</div>
 						<div class="text-right">
 							<p class="text-lg font-semibold">{{(product.price/100)}}$</p>
@@ -81,7 +86,7 @@
 						</div>
 					</div>
 					<div class="flex text-sm divide-x">
-						<button type="button" class="flex items-center px-2 py-1 pl-0 space-x-1">
+						<button type="button" class="flex items-center px-2 py-1 pl-0 space-x-1" @click="updateCart(product.id, 0)">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 fill-current">
 								<path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
 								<rect width="32" height="200" x="168" y="216"></rect>
@@ -111,10 +116,10 @@
 		<p class="text-sm text-coolGray-600">Not inclouding taxes and shipping costs</p>
 	</div>
 	<div class="flex justify-end space-x-4">
-		<button type="button" class="px-6 py-2 border rounded-md border-violet-600">Back
+		<button type="button" class="px-6 py-2 border rounded-md border-violet-600" @click="$inertia.visit(route('home'))" >Back
 			<span class="sr-only sm:not-sr-only">to shop</span>
 		</button>
-		<button type="button" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400">
+		<button type="button" @click="$inertia.visit(route('order.recipient'))" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400">
 			<span class="sr-only sm:not-sr-only">Continue to</span>Checkout
 		</button>
 	</div>
@@ -240,6 +245,28 @@ export default {
     phpVersion: String,
     cart: Object,
     cartTotal: Number,
+  },
+   data() {
+    return {
+      form: this.$inertia.form({
+        id: 0,
+        quantity: 0,
+
+      }),
+    };
+  },
+  methods:{
+    updateCart(cartId, value){
+      console.log("valeur "+cartId+" "+value);
+      if(isNaN(value)){return};
+
+      this.form.id=cartId;
+      this.form.quantity=value;
+        if(value==0){this.form.post(this.route('cart.remove')); }
+        else{this.form.post(this.route('cart.update'));}
+
+
+    }
   },
 };
 </script>

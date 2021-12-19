@@ -59,6 +59,7 @@ class CartController extends Controller
             ]
         );
 
+        usleep(400000);
         session()->flash('success', 'Item Cart is Updated Successfully !');
 
         return redirect()->route('cart.show');
@@ -66,6 +67,7 @@ class CartController extends Controller
 
     public function removeCart(Request $request)
     {
+        usleep(400000);
         Cart::remove($request->id);
         session()->flash('success', 'Item Cart Remove Successfully !');
 

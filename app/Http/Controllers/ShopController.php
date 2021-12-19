@@ -46,4 +46,19 @@ class ShopController extends Controller
         ]);
 
     }
+
+
+    public function step2(){
+
+
+
+        sleep(1);
+        return Inertia::render('Recipient', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+        ]);
+
+    }
 }
