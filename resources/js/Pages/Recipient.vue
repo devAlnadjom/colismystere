@@ -84,55 +84,117 @@
       <form action="#" method="POST">
         <div class="overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="grid grid-cols-6 gap-6">
+
+
+            <div class="grid grid-cols-6 gap-6 mt-5">
+
               <div class="col-span-6 sm:col-span-3">
                 <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
-                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.recipient_name" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-                <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
-                <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <label for="last-name"  class="block text-sm font-medium text-gray-700">Last name</label>
+                <input type="text" v-model="form.recipient_surname" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-6">
                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                <input type="text" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.recipient_email" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-                <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                <label for="country" class="block text-sm font-medium text-gray-700">For * </label>
                 <select id="country" name="country" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
+                  <option>Select one Option</option>
+                  <option>Him</option>
+                  <option>She</option>
+                  <option>him/Her</option>
                 </select>
               </div>
 
+          </div>
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="hidden sm:block" aria-hidden="true">
+  <div class="py-5">
+    <div class="border-t border-gray-200"></div>
+  </div>
+</div>
+
+
+<div class="mt-10 sm:mt-0">
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <div class="px-4 sm:px-0">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Adress And Contact</h3>
+        <p class="mt-1 text-sm text-gray-600">
+          Give us information about the adress of the recipient.
+        </p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <form action="#" method="POST">
+        <div class="overflow-hidden sm:rounded-md">
+          <div class="px-4 py-5 bg-white sm:p-6">
+
+              <fieldset class="">
+                <div>
+                <legend class="text-base font-medium text-gray-900">Place</legend>
+                <p class="text-sm text-gray-500">Where are we going to deliver?</p>
+              </div>
+              <div class="mt-4 .space-y-4 grid grid-cols-6 gap-2">
+                <div class="flex items-center col-span-6 sm:col-span-3 lg:col-span-2">
+                  <input id="push-everything" value="Home" v-model="form.recipient_place" name="push-notifications" type="radio" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300">
+                  <label for="push-everything" class="ml-3 block text-sm font-medium text-gray-700">
+                    Home
+                  </label>
+                </div>
+                <div class="flex items-center col-span-4 sm:col-span-3 lg:col-span-2">
+                  <input id="push-email" value="Workplace" v-model="form.recipient_place" name="push-notifications" type="radio" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300">
+                  <label for="push-email" class="ml-3 block text-sm font-medium text-gray-700">
+                    WorkPlace
+                  </label>
+                </div>
+                <div class="flex items-center col-span-4 sm:col-span-3 lg:col-span-2">
+                  <input id="push-nothing" value="Other" v-model="form.recipient_place" name="push-notifications" type="radio" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300">
+                  <label for="push-nothing" class="ml-3 block text-sm font-medium text-gray-700">
+                    Other
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="grid grid-cols-6 gap-6 mt-5">
+
+
               <div class="col-span-6">
                 <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
-                <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.recipient_address" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
-
-
-
-
 
               <div class="col-span-6 .sm:col-span-3 .lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
-                <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.recipient_zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
             </div>
 
             <div>
               <label for="about" class=" mt-5 block text-sm font-medium text-gray-700">
-                About
+                Special Instruction
               </label>
               <div class="mt-1">
-                <textarea id="about" name="about" rows="3" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
+                <textarea v-model="form.recipient_comment" id="about" name="about" rows="3" class="shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Give some Information"></textarea>
               </div>
               <p class="mt-2 text-sm text-gray-500">
-                Brief description for your profile. URLs are hyperlinked.
+                Give some preference like how you wish to be delivered.
               </p>
             </div>
           </div>
@@ -154,9 +216,9 @@
   <div class="md:grid md:grid-cols-3 md:gap-6">
     <div class="md:col-span-1">
       <div class="px-4 sm:px-0">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Notifications</h3>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Services Type</h3>
         <p class="mt-1 text-sm text-gray-600">
-          Decide which communications you'd like to receive and how.
+          Select All extra services you wish.
         </p>
       </div>
     </div>
@@ -165,15 +227,15 @@
         <div class=" overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
             <fieldset>
-              <legend class="text-base font-medium text-gray-900">By Email</legend>
+              <legend class="text-base font-medium text-gray-900">Services</legend>
               <div class="mt-4 space-y-4">
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
                     <input id="comments" name="comments" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
-                    <label for="comments" class="font-medium text-gray-700">Comments</label>
-                    <p class="text-gray-500">Get notified when someones posts a comment on a posting.</p>
+                    <label for="comments" class="font-medium text-gray-700">Fast Delivery  <b class=" ml-5 text-pink-700">+15$</b></label>
+                    <p class="text-gray-500">Your gift will be delivered in less than 3hrs.</p>
                   </div>
                 </div>
                 <div class="flex items-start">
@@ -181,7 +243,7 @@
                     <input id="candidates" name="candidates" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
-                    <label for="candidates" class="font-medium text-gray-700">Candidates</label>
+                    <label for="candidates" class="font-medium text-gray-700">Candidates <b class=" ml-5 text-pink-700">+2$</b></label>
                     <p class="text-gray-500">Get notified when a candidate applies for a job.</p>
                   </div>
                 </div>
@@ -190,38 +252,85 @@
                     <input id="offers" name="offers" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
-                    <label for="offers" class="font-medium text-gray-700">Offers</label>
+                    <label for="offers" class="font-medium text-gray-700"> Tracking<b class=" ml-5 text-pink-700">Free</b></label>
                     <p class="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
                   </div>
                 </div>
               </div>
             </fieldset>
-            <fieldset>
-              <div>
-                <legend class="text-base font-medium text-gray-900">Push Notifications</legend>
-                <p class="text-sm text-gray-500">These are delivered via SMS to your mobile phone.</p>
-              </div>
-              <div class="mt-4 space-y-4">
-                <div class="flex items-center">
-                  <input id="push-everything" name="push-notifications" type="radio" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300">
-                  <label for="push-everything" class="ml-3 block text-sm font-medium text-gray-700">
-                    Everything
-                  </label>
-                </div>
-                <div class="flex items-center">
-                  <input id="push-email" name="push-notifications" type="radio" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300">
-                  <label for="push-email" class="ml-3 block text-sm font-medium text-gray-700">
-                    Same as email
-                  </label>
-                </div>
-                <div class="flex items-center">
-                  <input id="push-nothing" name="push-notifications" type="radio" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300">
-                  <label for="push-nothing" class="ml-3 block text-sm font-medium text-gray-700">
-                    No push notifications
-                  </label>
-                </div>
+
+             <fieldset class="mt-5">
+              <p class=".sr-only">
+                Choose a size
+              </p>
+              <div class="grid grid-cols-2 gap-4 sm:grid-cols-8 lg:grid-cols-2">
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-gray-50 text-gray-200 cursor-not-allowed">
+                  <input type="radio" name="size-choice" value="XXS" disabled class="sr-only" aria-labelledby="size-choice-0-label">
+                  <p id="size-choice-0-label">
+                    XXS
+                  </p>
+
+                  <div aria-hidden="true" class="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none">
+                    <svg class="absolute inset-0 w-full h-full text-gray-200 stroke-2" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                      <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                    </svg>
+                  </div>
+                </label>
+
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none border-pink-400  sm:flex-1 sm:py-6 bg-white shadow-sm text-pink-400 cursor-pointer">
+                  <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
+                  <p id="size-choice-1-label">
+                    XS
+                  </p>
+
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                </label>
+
+                <!-- Active: "ring-2 ring-indigo-500" -->
+
+
+
+
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none focus:border-pink-400 sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
+                  <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
+                  <p id="size-choice-4-label">
+                    L
+                  </p>
+
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                </label>
+
+
+
+
+
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
+                  <input type="radio" name="size-choice" value="3XL" class="sr-only" aria-labelledby="size-choice-7-label">
+                  <p id="size-choice-7-label">
+                    3XL
+                  </p>
+
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                </label>
               </div>
             </fieldset>
+
           </div>
 
         </div>
@@ -237,7 +346,7 @@
 
 	<div class="space-y-1 text-right">
 		<p>Total amount:
-			<span class="font-semibold text-pink-800">lolo</span>
+			<span class="font-semibold text-pink-800">{{cartTotal /100}}</span>
 		</p>
 		<p class="text-sm text-coolGray-600">Not inclouding taxes and shipping costs</p>
 	</div>
@@ -370,13 +479,21 @@ export default {
     laravelVersion: String,
     phpVersion: String,
    // cart: Object,
-   // cartTotal: Number,
+    cartTotal: Number,
   },
    data() {
     return {
       form: this.$inertia.form({
-        id: 0,
-        quantity: 0,
+
+        recipient_surname: "",
+        recipient_name: "",
+        recipient_contact: "",
+        recipient_email: "",
+        recipient_address: "",
+        recipient_zip_code:"",
+        recipient_comment:"",
+        recipient_place:"",
+        recipient_sexe:"",
 
       }),
     };

@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 
 class ShopController extends Controller
 {
@@ -36,7 +37,7 @@ class ShopController extends Controller
                     ->firstOrFail();
        // dd($product);
 
-        sleep(1);
+       usleep(500000);
         return Inertia::render('Product', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -50,14 +51,15 @@ class ShopController extends Controller
 
     public function step2(){
 
+        $total = Cart::getTotal();
 
-
-        sleep(1);
+        usleep(500000);
         return Inertia::render('Recipient', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
+            'cartTotal' => $total,
         ]);
 
     }
