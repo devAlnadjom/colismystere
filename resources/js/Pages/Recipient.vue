@@ -100,16 +100,16 @@
 
               <div class="col-span-6 sm:col-span-6">
                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                <input type="text" v-model="form.recipient_email" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="tel" v-model="form.recipient_contact" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-                <label for="country" class="block text-sm font-medium text-gray-700">For * </label>
-                <select id="country" name="country" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                <label for="sexe" class="block text-sm font-medium text-gray-700">For * </label>
+                <select id="sexe" v-model="form.recipient_sexe" name="sexe" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
                   <option>Select one Option</option>
-                  <option>Him</option>
-                  <option>She</option>
-                  <option>him/Her</option>
+                  <option value="H">Him</option>
+                  <option value="F">She</option>
+                  <option value="N">him/Her</option>
                 </select>
               </div>
 
@@ -174,15 +174,18 @@
 
             <div class="grid grid-cols-6 gap-6 mt-5">
 
-
               <div class="col-span-6">
                 <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
                 <input type="text" v-model="form.recipient_address" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
-              <div class="col-span-6 .sm:col-span-3 .lg:col-span-2">
+              <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
-                <input type="text" v-model="form.recipient_zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.recipient_zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label for="postal-code" class="block text-sm font-medium text-gray-700">Ville</label>
+                <span  class="mt-1 pt-2 block w-full  sm:text-sm border-0 focus:border-0 font-bold">MONTREAL</span>
               </div>
             </div>
 
@@ -198,8 +201,6 @@
               </p>
             </div>
           </div>
-
-
         </div>
       </form>
     </div>
@@ -231,25 +232,25 @@
               <div class="mt-4 space-y-4">
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="comments" name="comments" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
+                    <input id="premium" v-model="form.recipient_premium" @change="calcutePrice()"  name="premium" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
-                    <label for="comments" class="font-medium text-gray-700">Fast Delivery  <b class=" ml-5 text-pink-700">+15$</b></label>
+                    <label for="premium" class="font-medium text-gray-700">Fast Delivery  <b class=" ml-5 text-pink-700">+15$</b></label>
                     <p class="text-gray-500">Your gift will be delivered in less than 3hrs.</p>
                   </div>
                 </div>
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="candidates" name="candidates" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
+                    <input id="tracking" v-model="form.recipient_tracking" @change="calcutePrice()" name="tracking" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
-                    <label for="candidates" class="font-medium text-gray-700">Candidates <b class=" ml-5 text-pink-700">+2$</b></label>
+                    <label for="tracking" class="font-medium text-gray-700">Candidates <b class=" ml-5 text-pink-700">+2$</b></label>
                     <p class="text-gray-500">Get notified when a candidate applies for a job.</p>
                   </div>
                 </div>
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="offers" name="offers" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
+                    <input id="offers" v-model="form.recipient_basic" @change="calcutePrice()" name="offers" type="checkbox" class="focus:ring-pink-500 h-4 w-4 text-pink-600 border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
                     <label for="offers" class="font-medium text-gray-700"> Tracking<b class=" ml-5 text-pink-700">Free</b></label>
@@ -259,12 +260,12 @@
               </div>
             </fieldset>
 
-             <fieldset class="mt-5">
+             <!--fieldset class="mt-5">
               <p class=".sr-only">
                 Choose a size
               </p>
               <div class="grid grid-cols-2 gap-4 sm:grid-cols-8 lg:grid-cols-2">
-                <!-- Active: "ring-2 ring-indigo-500" -->
+                <-- Active: "ring-2 ring-indigo-500" ->
                 <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-gray-50 text-gray-200 cursor-not-allowed">
                   <input type="radio" name="size-choice" value="XXS" disabled class="sr-only" aria-labelledby="size-choice-0-label">
                   <p id="size-choice-0-label">
@@ -278,36 +279,36 @@
                   </div>
                 </label>
 
-                <!-- Active: "ring-2 ring-indigo-500" -->
+                <-- Active: "ring-2 ring-indigo-500" ->
                 <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none border-pink-400  sm:flex-1 sm:py-6 bg-white shadow-sm text-pink-400 cursor-pointer">
                   <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
                   <p id="size-choice-1-label">
                     XS
                   </p>
 
-                  <!--
+                  <--
                     Active: "border", Not Active: "border-2"
                     Checked: "border-indigo-500", Not Checked: "border-transparent"
-                  -->
+                  ->
                   <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
                 </label>
 
-                <!-- Active: "ring-2 ring-indigo-500" -->
+                <-- Active: "ring-2 ring-indigo-500" ->
 
 
 
 
-                <!-- Active: "ring-2 ring-indigo-500" -->
+                <-- Active: "ring-2 ring-indigo-500" ->
                 <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none focus:border-pink-400 sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
                   <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
                   <p id="size-choice-4-label">
                     L
                   </p>
 
-                  <!--
+                  <--
                     Active: "border", Not Active: "border-2"
                     Checked: "border-indigo-500", Not Checked: "border-transparent"
-                  -->
+                  ->
                   <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
                 </label>
 
@@ -315,21 +316,21 @@
 
 
 
-                <!-- Active: "ring-2 ring-indigo-500" -->
+                <-- Active: "ring-2 ring-indigo-500" ->
                 <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer">
                   <input type="radio" name="size-choice" value="3XL" class="sr-only" aria-labelledby="size-choice-7-label">
                   <p id="size-choice-7-label">
                     3XL
                   </p>
 
-                  <!--
+                  <--
                     Active: "border", Not Active: "border-2"
                     Checked: "border-indigo-500", Not Checked: "border-transparent"
-                  -->
+                  ->
                   <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
                 </label>
               </div>
-            </fieldset>
+            </fieldset-->
 
           </div>
 
@@ -345,8 +346,14 @@
 
 
 	<div class="space-y-1 text-right">
-		<p>Total amount:
+		<p>Cart amount:
 			<span class="font-semibold text-pink-800">{{cartTotal /100}}</span>
+		</p>
+    <p>Services & Extra:
+			<span class="font-semibold text-pink-800">{{livraison }}.00</span>
+		</p>
+    <p>Total amount:
+			<span class="font-semibold text-pink-800">{{total/100}}</span>
 		</p>
 		<p class="text-sm text-coolGray-600">Not inclouding taxes and shipping costs</p>
 	</div>
@@ -354,51 +361,14 @@
 		<button type="button" class="px-6 py-2 border rounded-md border-violet-600" @click="$inertia.visit(route('home'))" >Back
 			<span class="sr-only sm:not-sr-only">to shop</span>
 		</button>
-		<button type="button" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400">
+		<button type="button" @click="sendDelivery()" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400">
 			<span class="sr-only sm:not-sr-only">Continue to</span>Checkout
 		</button>
 	</div>
 </div>
   </section>
 
-
-  <footer class="text-gray-600 body-font border-t">
-  <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-    <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-pink-400 rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>
-      <span class="ml-3 text-xl">Colis Mystere</span>
-    </a>
-    <p class="text-sm  sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4 text-pipink04">© 2020 Colis_Mystere —
-      <a href="https://twitter.com/knyttneve" class="text-pink-800 ml-1" rel="noopener noreferrer" target="_blank">@knyttneve</a>
-    </p>
-    <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-      <a class="text-pink-400">
-        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-        </svg>
-      </a>
-      <a class="ml-3 text-pink-400">
-        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-        </svg>
-      </a>
-      <a class="ml-3 text-pink-400">
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-        </svg>
-      </a>
-      <a class="ml-3 text-pink-400">
-        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
-          <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
-          <circle cx="4" cy="4" r="2" stroke="none"></circle>
-        </svg>
-      </a>
-    </span>
-  </div>
-</footer>
+ <Footer class="border-t" />
 </template>
 
 <style scoped>
@@ -467,11 +437,13 @@
 
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import Footer from '@/Components/Footer.vue';
 
 export default {
   components: {
     Head,
     Link,
+    Footer,
   },
   props: {
     canLogin: Boolean,
@@ -485,31 +457,55 @@ export default {
     return {
       form: this.$inertia.form({
 
-        recipient_surname: "",
-        recipient_name: "",
-        recipient_contact: "",
+        recipient_surname: "",//
+        recipient_name: "",//
+        recipient_contact: "",//
         recipient_email: "",
-        recipient_address: "",
-        recipient_zip_code:"",
-        recipient_comment:"",
+        recipient_address: "",//
+        recipient_zip_code:"",//
+        recipient_comment:"",//
         recipient_place:"",
         recipient_sexe:"",
+        recipient_basic:true,
+        recipient_tracking:false,
+        recipient_premium:false,
 
       }),
+
+      livraison:0,
+      total:0,
     };
   },
   methods:{
-    updateCart(cartId, value){
-      console.log("valeur "+cartId+" "+value);
-      if(isNaN(value)){return};
+    sendDelivery(){
+      //console.log("valeur "+cartId+" "+value);
+      if(String(this.form.recipient_surname).length<4 || String(this.form.recipient_name).length<4 || String(this.form.recipient_contact).length<4
+            || String(this.form.recipient_address).length<4 || String(this.form.recipient_zip_code).length<5  )
+            {
+                alert("Some value need to be filled Right");
+                return};
 
-      this.form.id=cartId;
-      this.form.quantity=value;
-        if(value==0){this.form.post(this.route('cart.remove')); }
-        else{this.form.post(this.route('cart.update'));}
+        this.form.post(this.route('store.recipient'))
+        //else{this.form.post(this.route('cart.update'));}*/
 
 
+    },
+
+    calcutePrice()
+    {
+      this.livraison=0;
+      this.form.recipient_basic=true;
+      if(this.form.recipient_basic==true){this.livraison+=15}
+      if(this.form.recipient_premium==true){this.livraison+=15}
+      if(this.form.recipient_tracking==true){this.livraison+=2}
+      this.total=this.cartTotal+this.livraison*100;
     }
   },
+
+  mounted() {
+  this.$nextTick(function () {
+    this.calcutePrice();
+  })
+}
 };
 </script>

@@ -63,4 +63,24 @@ class ShopController extends Controller
         ]);
 
     }
+
+
+    public function storeRecipient(Request $request){
+
+        $total = Cart::getTotal();
+
+        usleep(500000);
+
+        dd($request);
+
+
+       /* return Inertia::render('Recipient', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'cartTotal' => $total,
+        ]);*/
+
+    }
 }
