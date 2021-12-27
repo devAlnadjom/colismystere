@@ -53,7 +53,7 @@ class ShopController extends Controller
 
         $total = Cart::getTotal();
 
-        usleep(500000);
+        usleep(200000);
         return Inertia::render('Recipient', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -65,22 +65,50 @@ class ShopController extends Controller
     }
 
 
+
     public function storeRecipient(Request $request){
 
         $total = Cart::getTotal();
 
-        usleep(500000);
+        usleep(100000);
+        $allRecipientInfo= $request->all();
+        //get all session data
+        //$request->session()->all();
+        $_SESSION['Recipient'] = array();
+        array_push($_SESSION['Recipient'],$allRecipientInfo);
+        $request->session()->put("recipientInfo", $allRecipientInfo);
+        $request->session()->save();
 
-        dd($request);
+        // Forget a single key...
+        //$request->session()->forget('name');
+
+        //if ($request->session()->has('users')) 
+
+        //ddd($request->session()->get("recipientInfo"));
 
 
-       /* return Inertia::render('Recipient', [
+        return redirect()->route('order.checkout');
+
+    }
+
+
+
+    public function checkout(Request $request){
+
+        $total = Cart::getTotal();
+        $cart = Cart::getContent();
+        $infoRecipient= $request->session()->get("recipientInfo");
+        
+        usleep(100000);
+        return Inertia::render('Checkout', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'cartTotal' => $total,
-        ]);*/
+            'cart' => $cart,
+            
+        ]);
 
     }
 }

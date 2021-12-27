@@ -23,6 +23,7 @@ Route::post('/cart/remove', [CartController::class, 'removeCart'])->name('cart.r
 Route::post('/cart/clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.show');
 
+Route::get('/order/checkout',[ShopController::class, 'checkout'] )->name('order.checkout');
 Route::post('/order/step2',[ShopController::class, 'storeRecipient'] )->name('store.recipient');
 Route::get('/order/step2',[ShopController::class, 'step2'] )->name('order.recipient');
 Route::get('/product/{slug}/{id}',[ShopController::class, 'viewone'] )->name('product.view');
