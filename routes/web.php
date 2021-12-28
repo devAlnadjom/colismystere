@@ -1,10 +1,11 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use Inertia\Inertia;
 |
 */
 
+Route::post('/shop/purchase', [UserController::class, 'purchase'])->name('order.purchase');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('/cart/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
 Route::post('/cart/remove', [CartController::class, 'removeCart'])->name('cart.remove');
@@ -41,7 +43,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('About');
     })->name('about');
 
-    Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');

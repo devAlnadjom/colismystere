@@ -107,6 +107,7 @@ class ShopController extends Controller
             'phpVersion' => PHP_VERSION,
             'cartTotal' => $total,
             'cart' => $cart,
+            'stripeKey'=> env("STRIPE_KEY", null),
             
         ]);
 

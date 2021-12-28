@@ -90,17 +90,21 @@
 
               <div class="col-span-6 sm:col-span-3">
                 <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
-                <input type="text" v-model="form.recipient_name" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.name" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3">
                 <label for="last-name"  class="block text-sm font-medium text-gray-700">Last name</label>
-                <input type="text" v-model="form.recipient_surname" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.surname" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-6">
                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                <input type="email" v-model="form.recipient_contact" name="email-address" id="email-address" autocomplete="false" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="email" v-model="form.email" name="email-address" id="email-address" autocomplete="false" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="col-span-6 sm:col-span-6">
+                <label for="email-address" class="block text-sm font-medium text-gray-700">Phone number</label>
+                <input type="tel" v-model="form.contact" name="email-address" id="email-address" autocomplete="false" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               
@@ -110,20 +114,20 @@
 
               <div class="col-span-6">
                 <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
-                <input type="text" v-model="form.recipient_address" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.address" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
-                <input type="text" v-model="form.recipient_zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">City</label>
-                <input type="text" v-model="form.recipient_zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.city" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">State</label>
-                <input type="text" v-model="form.recipient_zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.state" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
             
             </div>
@@ -143,7 +147,7 @@
 </div>
 
 
-<div class="mt-10 sm:mt-0">
+<div class="mt-5 sm:mt-0">
   <div class="md:grid md:grid-cols-3 md:gap-6">
     <div class="md:col-span-1">
       <div class="px-4 sm:px-0">
@@ -156,20 +160,28 @@
 		</p>
       </div>
     </div>
-    <div class="mt-5 md:mt-0 md:col-span-2">
+    <div class="mt-2 md:mt-0 md:col-span-2">
       <form action="#" method="POST">
         <div class="overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="grid grid-cols-6 gap-6 mt-5">
+            <div class="grid grid-cols-6 gap-6 mt-1">
                 <div class="col-span-6">
-                  <label for="street-address" class="block text-sm font-medium text-gray-700">Card Number / CVV</label>
-                  <input type="text" v-model="form.recipient_address" name="street-address" id="street-address" placeholder="XXXX XXXX XXXX XXXX          XX/XX " autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                </div>
+                  <label for="street-address" class="block text-sm font-medium text-gray-700 focus:ring-pink-500 focus:border-pink-500">Card Number </label>
+                        <div class="mt-3 py-2 px-2 block w-full  sm:text-sm border border-gray-300 rounded-md">
+                          <div id="card-element" class=" w-full ">
+                          <!-- Elements will create input elements here -->
+                        </div>
+                        </div>
+                        
+
+                        <!-- We'll put the error messages in this element -->
+                        <div id="card-errors" role="alert"></div>
+                        </div>
                 <div class="col-span-6 space-x-4">
                   <button type="button" class="px-6 py-2 border rounded-md border-violet-600" @click="$inertia.visit(route('home'))" >Back
                     <span class="sr-only sm:not-sr-only">Go to Cart</span>
                   </button>
-                  <button type="button" @click="sendDelivery()" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400">
+                  <button type="button" @click="processPayment()" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400" :disabled="processingPayment">
                     <span class="sr-only sm:not-sr-only"></span>PAY NOW
                   </button>
                 </div>
@@ -262,6 +274,7 @@
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Footer from '@/Components/Footer.vue';
+import {loadStripe} from '@stripe/stripe-js';
 
 export default {
   components: {
@@ -276,24 +289,27 @@ export default {
     phpVersion: String,
    // cart: Object,
     cartTotal: Number,
+    stripeKey: String,
   },
    data() {
     return {
+      stripe:{},
+      cardElement:{},
+      processingPayment: false,
       form: this.$inertia.form({
 
-        recipient_surname: "",//
-        recipient_name: "",//
-        recipient_contact: "",//
-        recipient_email: "",
-        recipient_address: "",//
-        recipient_zip_code:"",//
-        recipient_comment:"",//
-        recipient_place:"",
-        recipient_sexe:"",
-        recipient_basic:true,
-        recipient_tracking:false,
-        recipient_premium:false,
-
+        surname: "",//
+        name: "",//
+        contact: "",//
+        email: "",
+        address: "",//
+        zip_code:"",//
+        comment:"",//
+        basic:true,
+        tracking:false,
+        premium:false,
+        payment_id:null,
+        total:0,
       }),
 
       livraison:0,
@@ -301,34 +317,76 @@ export default {
     };
   },
   methods:{
-    sendDelivery(){
-      //console.log("valeur "+cartId+" "+value);
-      if(String(this.form.recipient_surname).length<4 || String(this.form.recipient_name).length<4 || String(this.form.recipient_contact).length<4
-            || String(this.form.recipient_address).length<4 || String(this.form.recipient_zip_code).length<5  )
-            {
-                alert("Some value need to be filled Right");
-                return};
-
-        this.form.post(this.route('store.recipient'))
+    checkout(){
+      
+        this.form.post(this.route('order.purchase'))
         //else{this.form.post(this.route('cart.update'));}*/
-
-
     },
 
     calcutePrice()
     {
       this.livraison=0;
-      this.form.recipient_basic=true;
-      if(this.form.recipient_basic==true){this.livraison+=15}
-      if(this.form.recipient_premium==true){this.livraison+=15}
-      if(this.form.recipient_tracking==true){this.livraison+=2}
+      this.form.basic=true;
+      if(this.form.basic==true){this.livraison+=15}
+      if(this.form.premium==true){this.livraison+=15}
+      if(this.form.tracking==true){this.livraison+=2}
       this.total=this.cartTotal+this.livraison*100;
+    },
+
+    async processPayment()
+    {
+      //send payment information to to laravel and the backend
+      //console.log("valeur "+cartId+" "+value);
+      if(String(this.form.surname).length<4 || String(this.form.name).length<4 || String(this.form.contact).length<4
+            || String(this.form.address).length<4 || String(this.form.zip_code).length<5  )
+            {
+                alert("Some value need to be filled Right");
+                return};
+
+      this.processingPayment=true;
+      const { paymentMethod, error} = await this.stripe.createPaymentMethod(
+        'card', this.cardElement,{
+          billing_details:{
+            name:this.form.name+ ''+ this.form.surname,
+            email: this.form.email,
+            address:{
+              line1: this.form.address,
+              city: this.form.city,
+              state: this.form.state,
+              postal_code: this.form.zip_code
+            }
+          }
+        }
+      );
+
+      if(error){
+        this.processingPayment=false;
+        alert(error);
+      }else{
+        
+        this.form.payment_id= paymentMethod.id;
+        this.form.total= this.total;
+        this.checkout();
+        //alert("cest bon");
+        //Call payment method
+      }
+
     }
   },
 
   mounted() {
-  this.$nextTick(function () {
+  this.$nextTick(async function () {
     this.calcutePrice();
+    this.stripe= await loadStripe(this.stripeKey);
+    
+    const elements = this.stripe.elements();
+    this.cardElement = elements.create('card',{
+      classes:{
+        base:'',
+      }
+    });
+    this.cardElement.mount('#card-element')
+    
   })
 }
 };
