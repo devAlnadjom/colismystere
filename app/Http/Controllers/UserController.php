@@ -20,10 +20,13 @@ class UserController extends Controller
 
     public function purchase(Request $request){
 
-        //chech if total_server == total_from frontend 
+        $infoRecipient= $request->session()->get("recipientInfo");
+        
+        //chech if $total = Cart::getTotal()+$this->calculPrice($infoRecipient) == $request->input('total') frontend 
 
         //create user
-        $infoRecipient= $request->session()->get("recipientInfo");
+        
+
 
         $user= User::firstOrCreate([
                 'email'=>$request->input('email')
@@ -60,6 +63,10 @@ class UserController extends Controller
                     'recipient_state'=>"Quebec" , //$infoRecipient['recipient_state'] ,
                     'recipient_zip_code'=>$infoRecipient['recipient_zip_code'] ,
                     'recipient_comment'=>$infoRecipient['recipient_comment'] ,
+                    'recipient_basic'=>$infoRecipient['recipient_basic']?1500:0 ,
+                    'recipient_tracking'=>$infoRecipient['recipient_tracking']?200:0 ,
+                    'recipient_premium'=>$infoRecipient['recipient_premium']?1500:0 ,
+                    'recipient_own_product'=>0,//$infoRecipient['recipient_premium']?1000:0 ,
 
                 ]);
             
@@ -70,9 +77,15 @@ class UserController extends Controller
                     ->attach($item->id,["qty"=>$item->quantity,"cprice"=>$item->price ]);
             }
 
-            $order->load('products');
+            //$order->load('products');
 
-            dd($order);
+            //dd($order);
+            //go to route to show sumary
+            $request->session()->put("last_order", $order->id);
+           // $request->session()->forget('recipientInfo');
+            $request->session()->save();
+            
+            return redirect()->route('order.sumary');
 
         }
         catch(\Exception $e){
@@ -83,8 +96,21 @@ class UserController extends Controller
         }
 
         //create order and fetch all cart info in order product
+       
 
+    }
+
+    private function calculPrice($data){
+        $total=0;
+        $basic_price=15;
         
+        if($data['recipient_tracking'])
+            $total+=2;
+
+        if($data['recipient_premium'])
+            $total+=10;
+
+        return $total+$basic_price;
 
     }
 }

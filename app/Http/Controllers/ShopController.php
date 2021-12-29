@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -108,6 +109,34 @@ class ShopController extends Controller
             'cartTotal' => $total,
             'cart' => $cart,
             'stripeKey'=> env("STRIPE_KEY", null),
+            
+        ]);
+
+    }
+
+
+    public function sumary(Request $request){
+
+        if (! $request->session()->has('last_order')) {
+             return redirect()->route('home');
+        }
+        
+        $order= $request->session()->get("last_order");
+        $order= Order::Where('id',$order)
+                    ->with(['products'])
+                    ->firstOrFail();
+
+        //dd($order);
+
+        
+        
+        usleep(100000);
+        return Inertia::render('Order_sumary', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'order' =>$order
             
         ]);
 
