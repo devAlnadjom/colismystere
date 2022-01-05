@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 
@@ -44,7 +45,9 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('About');
     })->name('about');
 
+    Route::resource('order', OrderController::class);
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');

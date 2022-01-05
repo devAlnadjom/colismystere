@@ -50,17 +50,18 @@ class ShopController extends Controller
     }
 
 
-    public function step2(){
+    public function step2(Request $request){
 
         $total = Cart::getTotal();
 
-        usleep(200000);
+        usleep(100000);
         return Inertia::render('Recipient', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'cartTotal' => $total,
+            'recipientData'=> $request->session()->has('recipientInfo')?$request->session()->get("recipientInfo"):false
         ]);
 
     }

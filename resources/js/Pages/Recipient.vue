@@ -452,6 +452,7 @@ export default {
     phpVersion: String,
    // cart: Object,
     cartTotal: Number,
+    recipientData:Object,
   },
    data() {
     return {
@@ -499,11 +500,32 @@ export default {
       if(this.form.recipient_premium==true){this.livraison+=15}
       if(this.form.recipient_tracking==true){this.livraison+=2}
       this.total=this.cartTotal+this.livraison*100;
+    },
+
+    setMemoryData(){
+
+      if(this.recipientData==false)
+        return;
+
+        this.form.recipient_surname= this.recipientData?.recipient_surname;//
+        this.form.recipient_name= this.recipientData?.recipient_name;//
+        this.form.recipient_contact= this.recipientData?.recipient_contact;//
+        this.form.recipient_email= this.recipientData?.recipient_email;
+        this.form.recipient_address= this.recipientData?.recipient_address;//
+        this.form.recipient_zip_code=this.recipientData?.recipient_zip_code;//
+        this.form.recipient_comment=this.recipientData?.recipient_comment;//
+        this.form.recipient_place=this.recipientData?.recipient_place;
+        this.form.recipient_sexe=this.recipientData?.recipient_sexe;
+        this.form.recipient_basic=this.recipientData?.recipient_basic;
+        this.form.recipient_tracking=this.recipientData?.recipient_tracking;
+        this.form.recipient_premium=this.recipientData?.recipient_premium;
+
     }
   },
 
   mounted() {
   this.$nextTick(function () {
+    this.setMemoryData();
     this.calcutePrice();
   })
 }
