@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -13,9 +15,17 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return Inertia::render('Products/Index', [
+            //'Products' => Order::paginate(),
+            'filters' => $request->all('search', 'trashed'),
+            'products' => Product::Where('id','>','0')
+                ->filter($request->only('search', 'trashed'))
+                ->paginate(10)
+                ->withQueryString()
+        ]);
     }
 
     /**

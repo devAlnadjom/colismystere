@@ -13,11 +13,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         return Inertia::render('Orders/Index', [
-            'orders' => Order::paginate()
+            //'orders' => Order::paginate(),
+            'filters' => $request->all('search', 'trashed'),
+            'orders' => Order::Where('total','>','-1')
+                ->filter($request->only('search', 'trashed'))
+                ->paginate(10)
+                ->withQueryString()
         ]);
     }
 
