@@ -95,7 +95,8 @@
           </button>
         </div>
       </div>
-      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
+      <img v-if="!product.media[0]" alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
+      <img v-if="product.media[0]" alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" :src="makeimg(product.media[0])">
     </div>
   </div>
 </section>
@@ -199,7 +200,11 @@ export default {
       addTocart(ide){
 
           this.form.post(this.route('cart.store'));
-      }
+      },
+
+      makeimg(img){
+      return "/storage/"+img.id+"/"+img.file_name;
+    }
   }
 };
 </script>

@@ -15,7 +15,7 @@ class ShopController extends Controller
     //
     public function index(){
 
-        $products= Product::with(['categories:id,name'])
+        $products= Product::where('avaible','1')->with(['categories:id,name','media'])
             ->paginate(9);
         //dd($products);
 
@@ -34,7 +34,7 @@ class ShopController extends Controller
 
         $product= Product::where('slug',$slug)
                     ->orWhere('id',$id)
-                    ->with(['categories:id,slug,name'])
+                    ->with(['categories:id,slug,name','media'])
                     ->firstOrFail();
        // dd($product);
 

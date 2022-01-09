@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreProductRequest;
+
+use App\Http\Requests\UpdateProductRequest;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductController extends Controller
 {
@@ -19,9 +23,8 @@ class ProductController extends Controller
     {
         //
         return Inertia::render('Products/Index', [
-            //'Products' => Order::paginate(),
             'filters' => $request->all('search', 'trashed'),
-            'products' => Product::Where('id','>','0')
+            'products' => Product::Where('id','>','0')->with('media')
                 ->filter($request->only('search', 'trashed'))
                 ->paginate(10)
                 ->withQueryString()
@@ -36,62 +39,100 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Products/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProductRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StoreProductRequest $request)
     {
-        //
+       
+        $data= $request->safe()->except(['picture']);;
+        $product= Product::create($data);
+
+        $product->addMediaFromRequest('picture')
+                ->toMediaCollection('images');
+        
+        return redirect()->route('products.index')->with('success',"Your new product has been added.");
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
+    
+    public function show(int $product)
     {
-        //
+        $AYU= Product::where('id',$product)
+                    ->with(['categories:id,slug,name','media'])
+                    ->firstOrFail();
+
+        return Inertia::render('Products/Edit', [
+            'product' => $AYU,
+            'categories' => Category::get(['id','name']),
+        ]);
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Product $product)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProductRequest  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        
+        $data= $request->safe()->except(['picture']);;
+        $product->update($data);
+        
+        return redirect()->route('products.show',$product->id)->with('success',"Your product has been updated.");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy(Product $product)
     {
         //
     }
+
+    public function remove_category(Request $request)
+    {
+
+         Product::find($request->input('id_product'))->categories()->detach($request->input('id_category'));
+         
+         return redirect()->route('products.show',$request->input('id_product'))->with('success',"Category deleted.");
+
+    }
+
+    public function add_category(Request $request)
+    {
+
+         Product::find($request->input('id_product'))->categories()->attach($request->input('id_category'));
+         
+         return redirect()->route('products.show',$request->input('id_product'))->with('success',"Category Added.");
+
+    
+    }
+
+    public function remove_media(Request $request)
+    {
+
+         Product::find($request->input('id_product'))->touch();
+         Media::where('id', $request->input('id_media'))->delete();
+         Storage::deleteDirectory('/public/'.$request->input('id_media'));
+         return redirect()->route('products.show',$request->input('id_product'))->with('success',"Image deleted.");
+
+    }
+
+    public function add_media(Request $request)
+    {
+
+        $validated = $request->validate([
+            'picture' => 'image',
+        ]);
+
+         Product::find($request->input('id_product'))
+                    ->addMediaFromRequest('picture')
+                    ->toMediaCollection('images');
+         return redirect()->route('products.show',$request->input('id_product'))->with('success',"Media added.");
+
+    }
+
 }

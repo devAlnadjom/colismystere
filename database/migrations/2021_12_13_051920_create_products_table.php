@@ -23,7 +23,6 @@ class CreateProductsTable extends Migration
             $table->integer('price')->default(0);
             $table->string('supplier')->nullable();
             $table->boolean('avaible')->default(true);
-            $table->unsignedBigInteger('category_id')->nullable();
 
             $table->timestamps();
         });

@@ -71,10 +71,15 @@
           <div class="flex flex-wrap -m-4">
             <div v-for="product in products.data" :key="product.id" class="lg:w-1/3 md:w-1/2 p-4 w-full">
               <a class="block relative h-48 rounded overflow-hidden">
-                <img
+                <img v-if="!product.media[0]"
                   alt="ecommerce"
                   class="object-cover object-center w-full h-full block"
                   src="https://dummyimage.com/420x260"
+                />
+                <img v-if="product.media[0]"
+                  alt="ecommerce"
+                  class="object-cover object-center w-full h-full block"
+                  :src="makeimg(product.media[0])"
                 />
               </a>
               <div class="mt-4">
@@ -206,5 +211,10 @@ export default {
     phpVersion: String,
     products: Object,
   },
+  methods:{
+      makeimg(img){
+      return "/storage/"+img.id+"/"+img.file_name;
+    }
+  }
 };
 </script>

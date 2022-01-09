@@ -14,16 +14,19 @@
                     <option :value="null" />
                     <option value="with">All </option>
                     <option value="only">Trashed</option>
+                    <option value="1">Avaible</option>
+                    <option value="0">Not Avaible</option>
                   </select>
             </div>
               <div class="flex w-full bg-white shadow rounded">
       <input class="relative w-full px-4 py-1 rounded-r -focus:ring border" autocomplete="off" type="text" name="search" placeholder="Search…" v-model="form.search"  />
     </div>
     <button class="ml-3 text-sm text-gray-500 hover:text-gray-700 focus:text-indigo-500 " type="button" @click="reset()">Reset</button>
-  
+    
       </div>
-        <button class="flex ml-auto text-white bg-pink-400 border-0 py-1 px-4 focus:outline-none hover:bg-pink-500 rounded" @click="$inertia.visit(route('product.create'))">Add New</button>
-          
+              <Link :href="route('products.create',)" active class="block">
+                    <span class="flex ml-auto text-white bg-pink-400 border-0 py-1 px-4 focus:outline-none hover:bg-pink-500 rounded">Add New</span>
+                </Link>
     </div>
    
 
@@ -32,8 +35,8 @@
         <table class="w-full whitespace-no-wrap">
           <thead>
           <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
-            <th class="px-4 py-3">#</th>
-            <th class="px-4 py-3">Receiver</th>
+            <th class="px-4 py-3"></th>
+            <th class="px-4 py-3">name</th>
             <th class="px-4 py-3">Pice</th>
             <th class="px-4 py-3">Status</th>
             <th class="px-4 py-3">Action</th>
@@ -43,10 +46,12 @@
           <tr v-for="product in products.data" :key="product.id" class="text-gray-700">
             <td class="px-4 py-3 text-sm">
               
-              <span class="flex flex-col">
+                <img v-if="product.media[0]" :src="makeimg(product.media[0])" class="rounded h-12 w-12" />
+                <span class="flex flex-col" v-if="!product.media[0]" >
                 <span class="mb-1"># - {{ product.id }} </span>
-                <span class=" font-light">{{ product.created_at.substring(0,10) }}</span>
               </span>
+             
+              
             </td>
             <td class="px-4 py-3 text-sm">
               <span class="flex flex-row">
@@ -133,6 +138,10 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
+    makeimg(img){
+      return "/storage/"+img.id+"/"+img.file_name;
+    }
+    
   },
 }
 </script>

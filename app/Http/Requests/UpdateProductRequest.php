@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -13,18 +14,27 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:100'],
+            'small_description' => ['required', 'string','max:200'],
+            'description' => ['required', 'string','max:1000'],
+            'price'=>['numeric','required'],
+            'slug'=>['string'],
+            'avaible'=> ['boolean']
         ];
+    }
+
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug'=> Str::slug($this->name)
+        ]);
     }
 }
