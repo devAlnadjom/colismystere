@@ -45,7 +45,7 @@
         </Link>
 
         <Link
-          :href="route('register')"
+          :href="route('cart.show')"
           class="ml-4 text-sm text-gray-700 underline"
         >
           Cart
@@ -114,20 +114,20 @@
 
               <div class="col-span-6">
                 <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
-                <input type="text" v-model="form.address" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.address" name="street-address" id="street-address" autocomplete="off" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
-                <input type="text" v-model="form.zip_code" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.zip_code" name="postal-code"  autocomplete="off" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">City</label>
-                <input type="text" v-model="form.city" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.city" name="City"  autocomplete="off" placeholder="City" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="postal-code" class="block text-sm font-medium text-gray-700">State</label>
-                <input type="text" v-model="form.state" name="postal-code" id="postal-code" autocomplete="postal-code" placeholder="HXX XXX" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="form.state" name="state"  autocomplete="off" placeholder="State" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
             
             </div>

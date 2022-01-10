@@ -22,6 +22,7 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
+            'supplier' => ['string', 'max:100'],
             'small_description' => ['required', 'string','max:200'],
             'description' => ['required', 'string','max:1000'],
             'price'=>['numeric','required'],

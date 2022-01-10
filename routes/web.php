@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
@@ -37,14 +38,17 @@ Route::get('/', [ShopController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','IsAdmo'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','IsAdmo'])->group(function () {
     Route::get('about', function () {
         return Inertia::render('About');
     })->name('about');
+
+
+    Route::resource('categories', CategoryController::class);
 
     Route::post('products/add_media', [ProductController::class,'add_media'])->name('products.add_media');
     Route::post('products/remove_media', [ProductController::class,'remove_media'])->name('products.remove_media');

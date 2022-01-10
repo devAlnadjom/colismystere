@@ -74,19 +74,10 @@ class ShopController extends Controller
 
         usleep(100000);
         $allRecipientInfo= $request->all();
-        //get all session data
-        //$request->session()->all();
         $_SESSION['Recipient'] = array();
         array_push($_SESSION['Recipient'],$allRecipientInfo);
         $request->session()->put("recipientInfo", $allRecipientInfo);
         $request->session()->save();
-
-        // Forget a single key...
-        //$request->session()->forget('name');
-
-        //if ($request->session()->has('users')) 
-
-        //ddd($request->session()->get("recipientInfo"));
 
 
         return redirect()->route('order.checkout');
@@ -127,11 +118,10 @@ class ShopController extends Controller
                     ->with(['products'])
                     ->firstOrFail();
 
-        //dd($order);
-
-        
-        
         usleep(100000);
+        $request->session()->forget('last_order');
+        $request->session()->forget('recipientInfo');
+
         return Inertia::render('Order_sumary', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

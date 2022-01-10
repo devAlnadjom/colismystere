@@ -5,10 +5,8 @@
     <template #header>
       Edit Product: <span class=" font-light">{{product.name}}</span>
     </template>
- 
-    <div class="p-4 bg-white rounded-lg shadow-xs w-full">
- 
-      <div v-show="$page.props.flash.success"
+
+    <div v-show="$page.props.flash.success"
            class="inline-flex w-full mb-4 overflow-hidden bg-white rounded-lg shadow-md">
         <div class="flex items-center justify-center w-12 bg-green-500">
           <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -25,6 +23,10 @@
           </div>
         </div>
       </div>
+ 
+    <div class="p-4 bg-white rounded-lg shadow-xs w-full">
+ 
+      
 
       <div class="flex lg:flex-row">
         <div class=" w-2/3"><BreezeValidationErrors class="mb-4"/>

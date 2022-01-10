@@ -25,6 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('recipient_address')->nullable();
             $table->string('recipient_state')->nullable();
             $table->string('recipient_zip_code')->nullable();
+            $table->string('recipient_sexe')->nullable();
+            $table->string('recipient_place')->nullable();
             $table->string('recipient_comment')->nullable();
             $table->integer('recipient_basic')->default(0);
             $table->integer('recipient_tracking')->default(0);

@@ -66,6 +66,8 @@ class UserController extends Controller
                     'recipient_basic'=>$infoRecipient['recipient_basic']?1500:0 ,
                     'recipient_tracking'=>$infoRecipient['recipient_tracking']?200:0 ,
                     'recipient_premium'=>$infoRecipient['recipient_premium']?1500:0 ,
+                    'recipient_sexe'=>$infoRecipient['recipient_sexe'] ,
+                    'recipient_place'=>$infoRecipient['recipient_place'] ,
                     'recipient_own_product'=>0,//$infoRecipient['recipient_premium']?1000:0 ,
 
                 ]);

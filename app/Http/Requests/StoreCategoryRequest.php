@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCategoryRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,16 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>['required', 'string', 'max:50'],
+            'slug'=>['required', 'string', 'max:50'],
+            'description'=>[ 'string', 'max:250'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug'=> Str::slug($this->name)
+        ]);
     }
 }

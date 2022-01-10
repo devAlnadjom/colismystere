@@ -45,7 +45,7 @@
         </Link>
 
         <Link
-          :href="route('register')"
+          :href="route('cart.show')"
           class="ml-4 text-sm text-gray-700 underline"
         >
           Cart
@@ -99,17 +99,17 @@
               </div>
 
               <div class="col-span-6 sm:col-span-6">
-                <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
-                <input type="tel" v-model="form.recipient_contact" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <label for="contact" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                <input type="tel" v-model="form.recipient_contact" name="econtact"  autocomplete="email" class="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3">
                 <label for="sexe" class="block text-sm font-medium text-gray-700">For * </label>
-                <select id="sexe" v-model="form.recipient_sexe" name="sexe" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                <select id="sexe" v-model="form.recipient_sexe" name="sexe" autocomplete="off" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
                   <option>Select one Option</option>
                   <option value="H">Him</option>
                   <option value="F">She</option>
-                  <option value="N">him/Her</option>
+                  <option value="N">Him/Her</option>
                 </select>
               </div>
 
@@ -484,12 +484,10 @@ export default {
             || String(this.form.recipient_address).length<4 || String(this.form.recipient_zip_code).length<5  )
             {
                 alert("Some value need to be filled Right");
-                return};
+                return
+            };
 
         this.form.post(this.route('store.recipient'))
-        //else{this.form.post(this.route('cart.update'));}*/
-
-
     },
 
     calcutePrice()

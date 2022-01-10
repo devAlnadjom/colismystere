@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -13,9 +15,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return Inertia::render('Categories/Index', [
+            'filters' => $request->all('search', 'trashed'),
+            'categories' => Category::where('id','>','0')
+                ->filter($request->only('search', 'trashed'))
+                ->paginate(10)
+                ->withQueryString()
+        ]);
     }
 
     /**
@@ -25,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Categories/Create');
     }
 
     /**
@@ -36,7 +45,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $data= $request->validated();
+        $category= Category::create($data);
+
+        return redirect()->route('categories.index')->with('success',"Your new category has been added.");
     }
 
     /**
@@ -45,32 +57,31 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(int $category)
     {
-        //
+        $category= Category::where('id',$category)
+                    ->with(['products:id,name'])
+                    ->firstOrFail();
+
+        return Inertia::render('Categories/Edit', [
+            'category' => $category,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Category $category)
     {
-        //
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+  
+
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data= $request->validated();
+        $category->update($data);
+        
+        return redirect()->route('categories.show',$category->id)->with('success',"Your category has been updated.");
     }
 
     /**

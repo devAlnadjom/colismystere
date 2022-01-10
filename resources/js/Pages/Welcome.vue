@@ -93,7 +93,7 @@
                 <Link :href="route('product.view', [product.slug,product.id] )" class="text-pink-800 title-font text-lg font-medium">
                   {{product.name}}
                 </Link>
-                <p class="mt-1">{{Math.floor(product.price/100) }} $</p>
+                <p class="mt-1">{{product.price/100 }} $</p>
               </div>
             </div>
 
