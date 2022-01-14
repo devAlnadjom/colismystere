@@ -103,8 +103,8 @@
         <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
 
 
-  <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-    <div>
+  <div class=" sm:flex-1 sm:flex sm:items-center sm:justify-between">
+    <div class="hidden md:block">
       <p class="text-sm text-gray-700">
         Showing
         <span class="font-medium">1</span>

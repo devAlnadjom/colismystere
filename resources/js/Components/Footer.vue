@@ -7,8 +7,8 @@
       </svg>
       <span class="ml-3 text-xl">Colis Mystere</span>
     </a>
-    <p class="text-sm  sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4 text-pipink04">© 2020 Colis_Mystere —
-      <a href="https://twitter.com/knyttneve" class="text-pink-800 ml-1" rel="noopener noreferrer" target="_blank">@knyttneve</a>
+    <p class="text-sm  sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4 text-pipink04">© 2021 Colis_Mystere —
+      <a href="https://devalnadjom.com" class="text-pink-800 ml-1" rel="noopener noreferrer" target="_blank">@alnadjom</a>
     </p>
     <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
       <a class="text-pink-400">
