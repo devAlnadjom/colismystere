@@ -33,7 +33,7 @@ class UserController extends Controller
             ],
             [
                 'password'=>Hash::make(Str::random(12)),
-                'name'=>$request->input('email'),
+                'name'=>$request->input('name'),
                 'address'=>$request->input('email'),
                 'contact'=>$request->input('contact'),
                 'city'=>$request->input('city'),

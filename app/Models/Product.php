@@ -21,11 +21,15 @@ class Product extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null) : void
     {
             $this->addMediaConversion('thumb')
-                    ->crop('crop-center', 100, 100);
+                    ->crop('crop-center', 500, 500);
     }
 
     public function categories(){
         return $this->belongsToMany(Category::class);
+    }
+
+    public function features(){
+        return $this->hasMany(Feature::class);
     }
 
 

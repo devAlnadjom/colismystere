@@ -17,9 +17,7 @@ class ShopController extends Controller
 
         $products= Product::where('avaible','1')->with(['categories:id,name','media'])
             ->paginate(9);
-        //dd($products);
-
-        //sleep(1);
+        
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -34,11 +32,11 @@ class ShopController extends Controller
 
         $product= Product::where('slug',$slug)
                     ->orWhere('id',$id)
-                    ->with(['categories:id,slug,name','media'])
+                    ->with(['categories:id,slug,name','media','features'])
                     ->firstOrFail();
        // dd($product);
 
-       usleep(500000);
+       
         return Inertia::render('Product', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -53,8 +51,6 @@ class ShopController extends Controller
     public function step2(Request $request){
 
         $total = Cart::getTotal();
-
-        usleep(100000);
         return Inertia::render('Recipient', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

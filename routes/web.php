@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DriverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,12 +52,16 @@ Route::middleware(['auth','IsAdmo'])->group(function () {
 
     Route::resource('categories', CategoryController::class);
 
+    Route::post('products/add_feature', [ProductController::class,'add_feature'])->name('products.add_feature');
+    Route::post('products/remove_feature', [ProductController::class,'remove_feature'])->name('products.remove_feature');
+    Route::post('products/add_category', [ProductController::class,'add_category'])->name('products.add_category');
     Route::post('products/add_media', [ProductController::class,'add_media'])->name('products.add_media');
     Route::post('products/remove_media', [ProductController::class,'remove_media'])->name('products.remove_media');
     Route::post('products/add_category', [ProductController::class,'add_category'])->name('products.add_category');
     Route::post('products/remove_category', [ProductController::class,'remove_category'])->name('products.remove_category');
     Route::resource('products', ProductController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('driver', DriverController::class);
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
 

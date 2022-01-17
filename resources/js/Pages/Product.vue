@@ -68,23 +68,30 @@
         <h2 class="text-sm title-font text-gray-500 tracking-widest">{{product.supplier}}</h2>
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{product.name}}</h1>
         <div class="flex mb-4">
-          <a class="flex-grow text-pink-400 border-b-2 border-pink-400 py-2 text-lg px-1">Description</a>
-          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Reviews</a>
-          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Details</a>
+          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 cursor-pointer" :class="{ 'text-pink-400  border-pink-400': tabposition==1 }" @click="tabposition=1">Description</a>
+          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 cursor-pointer" :class="{ 'text-pink-400  border-pink-400': tabposition==2 }" @click="tabposition=2">Reviews</a>
+          <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 cursor-pointer" :class="{ 'text-pink-400  border-pink-400': tabposition==3 }" @click="tabposition=3">Details</a>
         </div>
-        <p class="leading-relaxed mb-4">{{product.description}}</p>
-        <div class="flex border-t border-gray-200 py-2">
-          <span class="text-gray-500">Color</span>
-          <span class="ml-auto text-gray-900">Blue</span>
+        <div v-show="tabposition==1" class="transition duration-300">
+          <p class="leading-relaxed mb-4">{{product.description}}</p>
+          <div v-for="feature in product.features" :key="feature.id" class="flex border-t border-gray-200 py-2">
+          <span class="text-gray-500">{{feature.name}}</span>
+          <span class="ml-auto text-gray-900">{{feature.description}}</span>
         </div>
-        <div class="flex border-t border-gray-200 py-2">
-          <span class="text-gray-500">Size</span>
-          <span class="ml-auto text-gray-900">Medium</span>
         </div>
-        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
-          <span class="text-gray-500">Quantity</span>
-          <span class="ml-auto text-gray-900">4</span>
+
+        <div v-show="tabposition==2" class="transition duration-150">
+          <p class="leading-relaxed mb-4 h-24">No comment found...</p>
+          
         </div>
+
+        <div v-show="tabposition==3">
+          <p class="leading-relaxed mb-4">{{product.small_description}}</p>
+          
+        </div>
+        
+        
+        
         <div class="flex">
           <span class="title-font font-medium text-2xl text-gray-900">{{product.price/100 }}$</span>
           <button class="flex ml-auto text-white bg-pink-400 border-0 py-2 px-6 focus:outline-none hover:bg-pink-500 rounded" @click="addTocart(product.id)">Add To Cart</button>
@@ -193,6 +200,8 @@ export default {
         price: this.product.price,
         quantity:1,
       }),
+
+      tabposition:1,
     };
   },
 

@@ -113,7 +113,44 @@
         </div>
 
         <div class=" flex-1 pl-3 ">
-          <div class="rounded border py-4 px-3 bg-gray-100">
+
+           <div class="rounded border py-4 px-3 bg-gray-100">
+            <h3 class=" text-xl mb-3"> Features ({{ product.features.length}})</h3>
+          <div class=" w-full">
+            <ul>
+              <li v-for="feature in product.features" :key="feature.id" class="mb-3 border-b flex flex-row justify-between gap-2">
+                <div class="flex justify-between flex-1 gap-2">
+                  <span class=" text-sm">{{feature.name}}</span>
+                  <span class=" text-sm">{{feature.description}}</span>
+                </div>
+                
+                <button class=" text-sm text-red-500 hover:text-red-700 hover:bg-red-200 border border-red-500  px-2 rounded mb-1 " @click="remove_feature(feature.id)">-</button>
+              </li>
+            </ul>
+            <div class="mt-6  flex flex-row justify-between gap-2">
+                <div>
+          <BreezeInput
+              id="price"
+              type="text"
+              class="block mt-1 w-full"
+              v-model="form_feature.name"
+              placeholder="Name"
+          />
+          <BreezeInput
+              id="price"
+              type="text"
+              class="block mt-1 w-full"
+              v-model="form_feature.description"
+              placeholder="Description"
+          />
+                </div>
+                <button class=" text-sm text-green-500 hover:text-green-700 p-2 hover:bg-green-200 rounded border border-green-500 max-h-10" @click="add_feature()">Add New</button>
+            </div>
+            
+          </div>
+          </div>
+
+          <div class="rounded border py-4 px-3 bg-gray-100 mt-3">
             <h3 class=" text-xl mb-3"> Categories Linked ({{ product.categories.length}})</h3>
           <div class=" w-full">
             <ul>
@@ -209,6 +246,14 @@ export default {
         id_category: null,
       }),
       
+      form_feature: useForm({
+        _method: 'post',
+        id_product: this.product.id,
+        name: null,
+        description: null,
+        id_feature : null,
+      }),
+      
       form_photo: useForm({
         _method: 'post',
         id_product: this.product.id,
@@ -257,7 +302,18 @@ export default {
         onError: () => {alert('Une erreur s\'est produite')},
       });
     },
-    
+
+    remove_feature(id_feature)
+    {
+      
+      this.form_feature.id_feature= id_feature;
+
+      this.form_feature.post(this.route('products.remove_feature'), {
+        onSuccess: () => {},
+        onError: () => {alert('Une erreur s\'est produite')},
+      });
+    },
+
     remove_media(id_media)
     {
       
@@ -294,12 +350,31 @@ export default {
       this.form_photo.picture=null;
     },
 
+    add_feature()
+    {
+      if(!this.form_feature.name) return;
+
+      this.form_feature.post(this.route('products.add_feature'), {
+        onSuccess: () => {this.form_feature.name=null; this.form_feature.description=null;},
+        onError: () => {alert('Une erreur s\'est produite')},
+      });
+    },
+
     remove() {
       this.preview = null;
     },
 
-    makeimg(img){
+    makeimgthumb(img){
       return "/storage/"+img.id+"/"+img.file_name;
+    },
+    makeimg(img){
+      return "/storage/"+img.id+"/conversions/"+this.getThunb(img.file_name);
+    },
+
+    getThunb(img){
+      let filen= img.split('.')[0];
+      
+      return filen+"-thumb.jpg";
     }
   },
 

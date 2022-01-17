@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Feature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
@@ -14,11 +15,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index(Request $request)
     {
         //
@@ -57,7 +54,7 @@ class ProductController extends Controller
     public function show(int $product)
     {
         $AYU= Product::where('id',$product)
-                    ->with(['categories:id,slug,name','media'])
+                    ->with(['categories:id,slug,name','media','features'])
                     ->firstOrFail();
 
         return Inertia::render('Products/Edit', [
@@ -125,10 +122,42 @@ class ProductController extends Controller
             'picture' => 'image',
         ]);
 
+//         $media->getPath();  // the path to the where the original image is stored
+// $media->getPath('thumb'); // the path to the converted image with dimensions 368x232
+
+// $media->getUrl();  // the url to the where the original image is stored
+// $media->getUrl('thumb');
+
          Product::find($request->input('id_product'))
                     ->addMediaFromRequest('picture')
                     ->toMediaCollection('images');
          return redirect()->route('products.show',$request->input('id_product'))->with('success',"Media added.");
+
+    }
+
+
+
+    public function add_feature(Request $request)
+    {
+       $validated= $this->validate($request, [
+            'name' => 'required|max:50',
+            'description' => 'required|max:255',
+        ]);
+
+         Product::find($request->input('id_product'))->features()->create($validated);
+         
+         return redirect()->route('products.show',$request->input('id_product'))->with('success',"Feature Added.");
+
+    
+    }
+
+
+    public function remove_feature(Request $request)
+    {
+
+         Product::find($request->input('id_product'))->features()->delete($request->input('id_feature'));
+         
+         return redirect()->route('products.show',$request->input('id_product'))->with('success',"Category deleted.");
 
     }
 
