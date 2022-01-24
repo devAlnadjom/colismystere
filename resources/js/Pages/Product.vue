@@ -199,6 +199,7 @@ export default {
         name: this.product.name,
         price: this.product.price,
         quantity:1,
+        thumb:null
       }),
 
       tabposition:1,
@@ -206,14 +207,26 @@ export default {
   },
 
   methods :{
-      addTocart(ide){
 
+    maketmg(img){
+      return "/storage/"+img.id+"/conversions/"+this.getThunb(img.file_name);
+    },
+
+    getThunb(img){
+      let filen= img.split('.')[0];
+      
+      return filen+"-thumb.jpg";
+    },
+      addTocart(ide){
+          this.form.thumb= "/storage/"+this.product.media[0].id+"/conversions/"+this.getThunb(this.product.media[0].file_name);
           this.form.post(this.route('cart.store'));
       },
 
       makeimg(img){
       return "/storage/"+img.id+"/"+img.file_name;
-    }
+    },
+
+    
   }
 };
 </script>

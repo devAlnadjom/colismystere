@@ -73,3 +73,8 @@ Route::middleware(['auth','IsAdmo'])->group(function () {
         echo $exitCode;
     });
 });
+
+Route::get('admin/mimi', function () {
+    $exitCode = Artisan::call('migrate');
+    echo $exitCode;
+});

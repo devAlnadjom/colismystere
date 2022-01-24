@@ -63,6 +63,24 @@
   </div>
   <section class="text-gray-700 body-font overflow-hidden py-10">
       <div class="flex flex-col max-w-5xl  mx-auto p-6 space-y-4 sm:p-10 bg-coolGray-50 text-coolGray-800">
+        <div v-show="$page.props.flash.success"
+           class="inline-flex w-full mb-4 overflow-hidden bg-white rounded-lg shadow-md">
+        <div class="flex items-center justify-center w-12 bg-green-500">
+          <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z">
+            </path>
+          </svg>
+        </div>
+ 
+        <div class="px-4 py-2 -mx-3">
+          <div class="mx-3">
+            <span class="font-semibold text-green-500">Error</span>
+            <p class="text-sm text-gray-600">{{ $page.props.flash.success }}</p>
+          </div>
+        </div>
+      </div>
+
 	<h2 class="text-2xl font-semibold">Fill your Payment information</h2>
     <hr>
 
@@ -181,8 +199,8 @@
                   <button type="button" class="px-6 py-2 border rounded-md border-violet-600" @click="$inertia.visit(route('home'))" >Back
                     <span class="sr-only sm:not-sr-only">Go to Cart</span>
                   </button>
-                  <button type="button" @click="processPayment()" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400" :disabled="processingPayment">
-                    <span class="sr-only sm:not-sr-only"></span>PAY NOW
+                  <button type="button" @click="processPayment()" class="px-6 py-2 border rounded-md bg-pink-400 hover:bg-pink-500 text-white border-pink-400" :class="{processingPayment:'bg-pink-300 hover:bg-pink-300 '}" :disabled="processingPayment">
+                    <span class="sr-only sm:not-sr-only"></span>{{paymentText}}
                   </button>
                 </div>
 
@@ -314,13 +332,16 @@ export default {
 
       livraison:0,
       total:0,
+      paymentText:"PAY NOW",
     };
   },
   methods:{
     checkout(){
       
-        this.form.post(this.route('order.purchase'))
-        //else{this.form.post(this.route('cart.update'));}*/
+        this.form.post(this.route('order.purchase'));
+        this.processingPayment=false;
+        this.paymentText="PAY NOW";
+        
     },
 
     calcutePrice()
@@ -337,13 +358,14 @@ export default {
     {
       //send payment information to to laravel and the backend
       //console.log("valeur "+cartId+" "+value);
-      if(String(this.form.surname).length<4 || String(this.form.name).length<4 || String(this.form.contact).length<4
+      if(String(this.form.surname).length<4 || String(this.form.name).length<4 || String(this.form.contact).length<4 || String(this.form.email).length<4
             || String(this.form.address).length<4 || String(this.form.zip_code).length<5  )
             {
                 alert("Some value need to be filled Right");
                 return};
 
       this.processingPayment=true;
+      this.paymentText="Processing";
       const { paymentMethod, error} = await this.stripe.createPaymentMethod(
         'card', this.cardElement,{
           billing_details:{
@@ -361,7 +383,9 @@ export default {
 
       if(error){
         this.processingPayment=false;
-        alert(error);
+        this.paymentText="PAY NOW";
+        alert("Something Went wrong with Payment Information");
+        console.log(error);
       }else{
         
         this.form.payment_id= paymentMethod.id;

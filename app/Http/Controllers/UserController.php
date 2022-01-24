@@ -81,20 +81,20 @@ class UserController extends Controller
 
             //$order->load('products');
 
-            //dd($order);
-            //go to route to show sumary
-            $request->session()->put("last_order", $order->id);
-           // $request->session()->forget('recipientInfo');
-            $request->session()->save();
             
+            $request->session()->put("last_order", $order->id);
+            $request->session()->forget('recipientInfo');
+            $request->session()->save();
+
+            //send message
             return redirect()->route('order.sumary');
+
 
         }
         catch(\Exception $e){
             // throw exception
             $message_error= $e->getMessage();
-            dd($e);
-            //redirect()->back();
+            return redirect()->back(/*'categories.index'*/)->with('success',"SOMETHING went wrong with your payment.");
         }
 
         //create order and fetch all cart info in order product

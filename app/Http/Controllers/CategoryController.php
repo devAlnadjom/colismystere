@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Mail\OrderShipped;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -47,6 +49,7 @@ class CategoryController extends Controller
     {
         $data= $request->validated();
         $category= Category::create($data);
+        Mail::to("dev.alnadjom@gmail.com")->send(new OrderShipped());
 
         return redirect()->route('categories.index')->with('success',"Your new category has been added.");
     }
