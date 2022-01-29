@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->boolean('avaible')->default(true);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

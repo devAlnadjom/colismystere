@@ -15,6 +15,7 @@ class AddLinkToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
+
         });
     }
 

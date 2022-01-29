@@ -1,6 +1,6 @@
 <template>
   <Head title="My profile"/>
- 
+
   <BreezeAuthenticatedLayout>
     <template #header>
       Edit Category: <span class=" font-light">{{category.name}}</span>
@@ -15,7 +15,7 @@
             </path>
           </svg>
         </div>
- 
+
         <div class="px-4 py-2 -mx-3">
           <div class="mx-3">
             <span class="font-semibold text-green-500">Success</span>
@@ -23,22 +23,22 @@
           </div>
         </div>
       </div>
- 
+
     <div class="p-4 bg-white rounded-lg shadow-xs w-full">
- 
-      
+
+
 
       <div class="flex lg:flex-row">
         <div class=" w-3/5"><BreezeValidationErrors class="mb-4"/>
- 
+
       <form @submit.prevent="submit">
         <div class="mt-4 ">
-          
+
            <BreezeLabel for="name" value="Name"/>
           <BreezeInput id="name" type="text" class="block mt-1 w-full" v-model="form.name" required  />
          </div>
- 
- 
+
+
         <div class="mt-5">
           <BreezeLabel for="description" value="Description"/>
           <textarea rows="7"
@@ -48,8 +48,8 @@
           </textarea>
         </div>
 
-         
- 
+
+
 
         <BreezeButton
             class="block mt-4 w-full"
@@ -71,22 +71,22 @@
                 <button class=" text-sm text-red-500 hover:text-red-700" @click="remove_category(category.id)">Remove</button>
               </li>
             </ul>
-           
+
           </div>
           </div>
 
-          
+
         </div>
 
       </div>
 
-      
+
 
 
     </div>
   </BreezeAuthenticatedLayout>
 </template>
- 
+
 <script>
 import BreezeButton from '@/Components/Button.vue';
 import BreezeInput from '@/Components/Input.vue';
@@ -94,7 +94,7 @@ import BreezeLabel from '@/Components/Label.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
- 
+
 export default {
   components: {
     BreezeAuthenticatedLayout,
@@ -107,7 +107,7 @@ export default {
    props: {
     category: Object,
   },
- 
+
   data() {
     return {
       form: useForm({
@@ -116,15 +116,15 @@ export default {
         slug:"",
         description: this.category.description,
       }),
-      
-     
+
+
       value:null,
       new_category:null,
-      
+
       preview:null,
     };
   },
- 
+
   methods: {
     submit() {
       this.form.slug= this.form.name;
@@ -134,13 +134,13 @@ export default {
       });
     },
 
-   
-    
+
+
 
 
     remove_category(id_category)
     {
-      
+
       /*this.form_category.id_category= id_category;
 
       this.form_category.post(this.route('categorys.remove_category'), {
@@ -148,12 +148,12 @@ export default {
         onError: () => {alert('Une erreur s\'est produite')},
       });*/
     },
-    
-    
-    
+
+
+
   },
 
 };
 </script>
- 
+
 

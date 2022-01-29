@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Driver;
 use App\Models\Order;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -55,7 +57,17 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order= Order::where('id',$id)
+                    //->with(['categories:id,slug,name','media','features'])
+                    ->firstOrFail();
+
+        $products= $order->products()->get();
+        return Inertia::render('Orders/View', [
+            'products' => $products,
+            'order' => $order,
+            'categories' => Category::get(['id','name']),
+            'drivers' => Driver::with(["user"])->get(),
+        ]);
     }
 
     /**

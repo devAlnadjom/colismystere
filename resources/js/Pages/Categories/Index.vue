@@ -20,13 +20,13 @@
       <input class="relative w-full px-4 py-1 rounded-r -focus:ring border" autocomplete="off" type="text" name="search" placeholder="Search…" v-model="form.search"  />
     </div>
     <button class="ml-3 text-sm text-gray-500 hover:text-gray-700 focus:text-indigo-500 " type="button" @click="reset()">Reset</button>
-    
+
       </div>
               <Link :href="route('categories.create',)" active class="block">
                     <span class="flex ml-auto text-white bg-pink-400 border-0 py-1 px-4 focus:outline-none hover:bg-pink-500 rounded">Add New</span>
                 </Link>
     </div>
-   
+
 
     <div class="overflow-hidden mb-8 w-full rounded border shadow-xs">
       <div class="overflow-x-auto w-full">
@@ -43,19 +43,19 @@
           <tbody class="bg-white divide-y">
           <tr v-for="category in categories.data" :key="category.id" class="text-gray-700">
             <td class="px-4 py-3 text-sm">
-              
+
                 <span class="mb-1"># - {{ category.id }} </span>
-           
-   
+
+
             </td>
             <td class="px-4 py-3 text-sm">
               <span class="flex flex-row">
                 <span class="mb-1">{{ category.name }} </span>
                 <span></span>
               </span>
-              
+
             </td>
-            
+
             <td class="px-4 py-3 text-sm">
               <span class=" font-semibold"> {{ category.slug }}</span>
             </td>
@@ -64,9 +64,9 @@
               <span class=" p-1 text-xs bg-green-100 text-green-500 rounded" v-if="category?.deleted_at==null">Avaible</span>
             </td>
             <td class="px-4 py-3 text-sm">
-              
+
                <Link :href="route('categories.show',category.id)" active class="text-sm text-gray-700 block">
-                    <span class="text-green-500 hover:text-green-700 px-2 py-1 font-bold cursor-pointer">Edit</span>
+                    <span class="text-green-500 hover:text-green-700 px-2 py-1 font-bold cursor-pointer">View</span>
                 </Link>
             </td>
           </tr>
@@ -133,8 +133,8 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
-   
-    
+
+
   },
 }
 </script>

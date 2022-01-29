@@ -34,6 +34,7 @@ class CreateOrdersTable extends Migration
             $table->integer('recipient_own_product')->default(0);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
