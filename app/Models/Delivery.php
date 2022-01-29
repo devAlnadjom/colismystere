@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Delivery extends Model
 {
     use HasFactory;
+    protected $guarded= [];
+
+    public function driver(){
+        return $this->belongsTo(Driver::class);
+    }
+
+    
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
+
+    
 }

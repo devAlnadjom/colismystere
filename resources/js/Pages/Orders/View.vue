@@ -29,7 +29,7 @@
 
 
       <div class="flex lg:flex-row">
-        <div class=" w-1/3  rounded border py-4 px-3 bg-gray-50 ">
+        <div class=" w-2/5  rounded border py-4 px-3 bg-gray-50 ">
         <BreezeValidationErrors class="mb-4"/>
             <h3 class=" text-xl mb-3  ml-2"> General Infos</h3>
             <div class="mt-4 flex flex-row mx-2 border-b py-2">
@@ -135,38 +135,45 @@
             </div>
 
             <div class="rounded border py-4 px-3 bg-gray-100 mt-3">
-                <h3 class=" text-xl mb-3"> Delivey infos (Not set Yet)</h3>
-                <div class=" w-full">
-                    <ul>
-                    <li v-for="category in drivers " :key="category.id" class="mb-3 border-b flex flex-row justify-between">
-                        <span class=" text-sm">{{category.name}}</span>
-                        <button class=" text-sm text-red-500 hover:text-red-700" @click="remove_category(category.id)">Remove</button>
+                <div class="flex justify-between">
+                  <h3 class=" text-xl mb-3"> Delivery info</h3>
+                  <span class=" p-1 text-xs bg-red-100 text-red-500 rounded h-6" v-if="Number(order.status)   <=1">Not Planned</span>
+                  <span class=" p-1 text-xs bg-blue-100 text-blue-500 rounded h-6" v-if="Number(order.status) ==2">Planned</span>
+                  <span class=" p-1 text-xs bg-green-100 text-green-500 rounded" v-if="Number(order.status) > 2">Delivered</span>
+                </div>
+                <div class="w-full">
+                  <ul>
+                    <li v-for="delivery in deliveries " :key="delivery.id" class="mb-3 border-b flex flex-row justify-between">
+                      <span class=" text-sm">{{delivery?.driver.user.name}}</span>
+                      <span class=" text-sm">{{delivery?.created_at}}</span>
                     </li>
-                    </ul>
+                  </ul>
+                </div>
+                <div class=" w-full" v-if="Number(order.status) <3">
                     <div class="mt-6  flex flex-row justify-between gap-8">
                         <div class="w-full flex-1">
-                            <select v-model="new_category" class=" border-gray-400 rounded-md shadow-sm  focus:border-green-200  focus:ring-1 focus:ring-green-200 focus:ring-opacity-50 focus-within:text-green-400 w-full p-2">
+                            <select v-model="form_deliver.driver_id" class=" border-gray-400 rounded-md shadow-sm  focus:border-green-200  focus:ring-1 focus:ring-green-200 focus:ring-opacity-50 focus-within:text-green-400 w-full p-2">
                                 <option :value="null">Attach driver</option>
                                 <option v-for="driver in drivers " :key="driver.id" :value="driver.id">{{driver.user.name}} - {{driver.vehicule_model}}</option>
                             </select>
                             <div class="mt-4 flex flex-row">
                                 <div class=" w-1/3">
-                                <BreezeLabel for="name" value="Date"/>
+                                <BreezeLabel for="deliver_before" value="Date"/>
                                 <BreezeInput
-                                    id="name"
+                                    id="deliver_before"
                                     type="date"
                                     class="block mt-1 w-full"
-                                    v-model="form.name"
+                                    v-model="form_deliver.deliver_before"
                                     required
                                 />
                                 </div>
                                 <div class="pl-3 w-2/3">
-                                <BreezeLabel for="supplier" value="Comment"/>
+                                <BreezeLabel for="delivery_comment" value="Comment"/>
                                 <BreezeInput
-                                    id="supplier"
+                                    id="delivery_comment"
                                     type="text"
                                     class="block mt-1 w-full"
-                                    v-model="form.supplier"
+                                    v-model="form_deliver.comment"
                                     required
                                 />
                                 </div>
@@ -174,7 +181,7 @@
                             </div>
                         </div>
 
-                        <button class=" text-sm text-green-500 hover:text-green-700 p-2 hover:bg-green-200 rounded border border-green-500 max-h-16" @click="add_category()">Select Driver</button>
+                        <button class=" text-sm text-green-500 hover:text-green-700 p-2 hover:bg-green-200 rounded border border-green-500 max-h-12" @click="plan_delivery()">Select Driver</button>
                     </div>
 
                 </div>
@@ -217,6 +224,7 @@ export default {
     //medias:Array,
     drivers:Object,
     products:Object,
+    deliveries:Object,
 
   },
 
@@ -246,11 +254,12 @@ export default {
         id_feature : null,
       }),
 
-      form_photo: useForm({
+      form_deliver: useForm({
         _method: 'post',
-        id_order: this.order.id,
-        id_media:null,
-        picture: null,
+        order_id: this.order.id,
+        driver_id:null,
+        deliver_before: null,
+        comment:null,
       }),
       value:null,
       new_category:null,
@@ -262,12 +271,22 @@ export default {
   methods: {
     submit() {
       this.form.slug= this.form.name;
-
-
       this.form.post(this.route('orders.update',this.order.id), {
         onSuccess: () => {},
         onError: () => {alert("Sorry something went Wrong")},
       });
+    },
+
+    plan_delivery()
+    {
+      if(!this.form_deliver.driver_id || !this.form_deliver.deliver_before) return;
+      
+
+      this.form_deliver.post(this.route('delivery.store'), {
+        onSuccess: () => {this.form_deliver.driver_id=this.form_deliver.deliver_before= null;},
+        onError: () => {},
+      });
+      this.new_category=null;
     },
 
     filesize(size) {

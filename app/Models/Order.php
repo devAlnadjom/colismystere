@@ -21,6 +21,10 @@ class Order extends Model
          ->withPivot(['qty','cprice']);
     }
 
+    public function deliveries(){
+        return $this->hasMany(Delivery::class);
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {

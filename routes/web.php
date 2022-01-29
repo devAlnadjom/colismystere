@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DriverController;
 
 /*
@@ -60,6 +61,7 @@ Route::middleware(['auth','IsAdmo'])->group(function () {
     Route::post('products/add_category', [ProductController::class,'add_category'])->name('products.add_category');
     Route::post('products/remove_category', [ProductController::class,'remove_category'])->name('products.remove_category');
     Route::resource('products', ProductController::class);
+    Route::resource('delivery', DeliveryController::class);
     Route::resource('order', OrderController::class);
     Route::resource('driver', DriverController::class);
     Route::get('users', [UserController::class, 'index'])->name('users.index');

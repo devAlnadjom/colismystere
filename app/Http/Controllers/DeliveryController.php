@@ -2,30 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Driver;
-use App\Models\Order;
-use Inertia\Inertia;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class DeliveryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
-        return Inertia::render('Orders/Index', [
-            //'orders' => Order::paginate(),
-            'filters' => $request->all('search', 'trashed'),
-            'orders' => Order::Where('total','>','-1')
-                ->filter($request->only('search', 'trashed'))
-                ->paginate(10)
-                ->withQueryString()
-        ]);
     }
 
     /**
@@ -46,7 +35,20 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated= $this->validate($request, [
+            'driver_id' => 'numeric|required',
+            'order_id' => 'numeric|required',
+            'deliver_before' => 'date',
+        ]);
+
+        $delivery= Delivery::create($validated);
+        $delivery->status=1;
+        $delivery->order()->status=2;
+        $delivery->order()->update(['status'=>2]);
+        $delivery->save();
+
+        return redirect()->back()->with('success',"Delivery planned...");
+
     }
 
     /**
@@ -57,18 +59,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order= Order::where('id',$id)
-                    //->with(['categories:id,slug,name','media','features'])
-                    ->firstOrFail();
-
-        $products= $order->products()->get();
-        return Inertia::render('Orders/View', [
-            'products' => $products,
-            'order' => $order,
-            'categories' => Category::get(['id','name']),
-            'drivers' => Driver::with(["user"])->get(),
-            'deliveries'=> $order->deliveries()->with(['driver.user'])->get(),
-        ]);
+        //
     }
 
     /**
