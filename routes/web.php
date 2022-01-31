@@ -31,6 +31,7 @@ Route::post('/cart/remove', [CartController::class, 'removeCart'])->name('cart.r
 Route::post('/cart/clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.show');
 
+Route::get('/order/tracking/{id}/{key}',[ShopController::class, 'tracking'] )->name('order.tracking');
 Route::get('/order/sumary',[ShopController::class, 'sumary'] )->name('order.sumary');
 Route::get('/order/checkout',[ShopController::class, 'checkout'] )->name('order.checkout');
 Route::post('/order/step2',[ShopController::class, 'storeRecipient'] )->name('store.recipient');
@@ -47,8 +48,8 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth','IsAdmo'])->group(function () {
     Route::get('about', function () {
-        return Inertia::render('About');
-    })->name('about');
+            return Inertia::render('About');
+        })->name('about');
 
 
     Route::resource('categories', CategoryController::class);
@@ -60,6 +61,7 @@ Route::middleware(['auth','IsAdmo'])->group(function () {
     Route::post('products/remove_media', [ProductController::class,'remove_media'])->name('products.remove_media');
     Route::post('products/add_category', [ProductController::class,'add_category'])->name('products.add_category');
     Route::post('products/remove_category', [ProductController::class,'remove_category'])->name('products.remove_category');
+    
     Route::resource('products', ProductController::class);
     Route::resource('delivery', DeliveryController::class);
     Route::resource('order', OrderController::class);

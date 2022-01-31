@@ -124,27 +124,15 @@
                   <span class=" text-sm">{{feature.description}}</span>
                 </div>
                 
-                <button class=" text-sm text-red-500 hover:text-red-700 hover:bg-red-200 border border-red-500  px-2 rounded mb-1 " @click="remove_feature(feature.id)">-</button>
+                <button class=" text-sm text-red-500 hover:text-red-700 hover:bg-red-200 border border-red-500  px-2 rounded mb-1" @click="remove_feature(feature.id)">-</button>
               </li>
             </ul>
-            <div class="mt-6  flex flex-row justify-between gap-2">
-                <div>
-          <BreezeInput
-              id="price"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="form_feature.name"
-              placeholder="Name"
-          />
-          <BreezeInput
-              id="price"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="form_feature.description"
-              placeholder="Description"
-          />
+            <div class="mt-6  flex flex-row justify-between gap-1">
+                <div class="w-3/4">
+                   <BreezeInput  id="price"  type="text" class="block mt-1 w-full" v-model="form_feature.name" placeholder="Name" />
+                   <BreezeInput id="price" type="text" class="block mt-1 w-full" v-model="form_feature.description"  placeholder="Description"  />
                 </div>
-                <button class=" text-sm text-green-500 hover:text-green-700 p-2 hover:bg-green-200 rounded border border-green-500 max-h-10" @click="add_feature()">Add New</button>
+                <button class=" text-sm text-green-500 hover:text-green-700 p-1 hover:bg-green-200 rounded border border-green-500 max-h-10 " @click="add_feature()">Add New</button>
             </div>
             
           </div>

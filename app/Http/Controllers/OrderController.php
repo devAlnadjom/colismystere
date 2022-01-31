@@ -58,7 +58,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order= Order::where('id',$id)
-                    //->with(['categories:id,slug,name','media','features'])
+                    ->with(['user'])
                     ->firstOrFail();
 
         $products= $order->products()->get();
@@ -92,6 +92,16 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $order= Order::where('id',$id);
+         $validated= $this->validate($request, [
+            'status' => 'numeric|required',
+            'type' => 'numeric|required',
+        ]);
+        if($request->input("type")==1){
+            $order->update(['status'=>$request->input("status")]);
+        }
+        //Noify User if Need 
+        return redirect()->back()->with("success","your order state has been change");
     }
 
     /**

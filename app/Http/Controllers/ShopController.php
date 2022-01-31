@@ -75,7 +75,6 @@ class ShopController extends Controller
         $request->session()->put("recipientInfo", $allRecipientInfo);
         $request->session()->save();
 
-
         return redirect()->route('order.checkout');
 
     }
@@ -124,6 +123,27 @@ class ShopController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'order' =>$order
+            
+        ]);
+
+    }
+    
+    
+    public function tracking($key, $id){
+
+        $order= Order::Where('id',$id)
+                    ->Where('sha_key','like',"%".$key."%")
+                    ->with(['products.media'])
+                    ->firstOrFail();
+        $products=$order->products()->with(['media'])->get();
+       // dd($products);
+        
+
+        return Inertia::render('Order_tracking', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'order' =>$order,
+            'products'=>$products,
             
         ]);
 

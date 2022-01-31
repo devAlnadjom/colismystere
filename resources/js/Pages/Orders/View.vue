@@ -57,53 +57,107 @@
                 </div>
             </div>
 
-
-            <h3 class=" text-xl mt-8 ml-2"> Delivery Infos</h3>
-            <div class="mt-4 flex flex-row mx-2 border-b py-2">
-                <div class=" w-1/3">
-                    <BreezeLabel  value="Recipient"/>
-                </div>
-                <div class="pl-3 flex-1">
-                    <span class=" font-semibold text-right">{{order.recipient_name}}</span>
-                </div>
+            <div class="flex">
+              <h3 class=" text-xl mt-8 ml-2 p-2 border-b-2 w-1/2 cursor-pointer" :class="{'text-pink-400 border-pink-300':tabs==1}" @click="tabs=1"> Delivery Infos</h3>
+              <h3 class=" text-xl mt-8 ml-2 p-2 border-b-2 w-1/2 cursor-pointer" :class="{'text-pink-400 border-pink-300':tabs==2}" @click="tabs=2"> Buyer Infos</h3>
             </div>
-            <div class="mt-4 flex flex-row mx-2 border-b py-2">
-                <div class=" w-1/3">
-                    <BreezeLabel  value="Contact"/>
-                </div>
-                <div class="pl-3 flex-1">
-                    <span class=" font-semibold text-right"> {{order.recipient_contact}}</span>
-                </div>
+            <div class="w-full" v-if="tabs==1"> 
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Recipient"/>
+                  </div>
+                  <div class="pl-3 flex-1">
+                      <span class=" font-semibold text-right">{{order.recipient_name}}</span>
+                  </div>
+              </div>
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Contact"/>
+                  </div>
+                  <div class="pl-3 flex-1">
+                      <span class=" font-semibold text-right"> {{order.recipient_contact}}</span>
+                  </div>
+              </div>
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Adress"/>
+                  </div>
+                  <div class="">
+                      <p class=" font-semibold ">{{order?.recipient_address}}</p>
+                      <p class=" font-semibold ">
+                          {{order?.recipient_zip_code}} - Montreal, {{order?.recipient_state}}
+                      </p>
+                  </div>
+              </div>
+
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Place"/>
+                  </div>
+                  <div class="pl-3 flex-1">
+                      <span class=" font-semibold text-right"> {{order.recipient_place}}</span>
+                  </div>
+              </div>
             </div>
-            <div class="mt-4 flex flex-row mx-2 border-b py-2">
-                <div class=" w-1/3">
-                    <BreezeLabel  value="Adress"/>
-                </div>
-                <div class="">
-                    <p class=" font-semibold ">{{order?.recipient_address}}</p>
-                    <p class=" font-semibold ">
-                        {{order?.recipient_zip_code}} - Montreal, {{order?.recipient_state}}
-                    </p>
-                </div>
+
+
+            <div class="w-full" v-if="tabs==2"> 
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Name"/>
+                  </div>
+                  <div class="pl-3 flex-1">
+                      <span class=" font-semibold text-right">{{order.user.name}}</span>
+                  </div>
+              </div>
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Contact"/>
+                  </div>
+                  <div class="pl-3 flex-1">
+                      <span class=" font-semibold text-right"> {{order.user?.contact}}</span>
+                  </div>
+              </div>
+              <div class="mt-4 flex flex-row mx-2 border-b py-2">
+                  <div class=" w-1/3">
+                      <BreezeLabel  value="Adress"/>
+                  </div>
+                  <div class="">
+                      <p class=" font-semibold ">{{order.user?.address}}</p>
+                      <p class=" font-semibold ">
+                          {{order.user?.zip_code}} - Montreal, {{order.user?.state}}
+                      </p>
+                  </div>
+              </div>
             </div>
+            
+            <!-- form to setup the state of the order-->
+            <div class=" w-full" v-if="Number(order.status)> 0">
+                <h3 class=" text-xl mb-3 mt-8  ml-2">Order Status</h3>
+                    <div class="mt-2 mb-5 flex flex-row justify-between gap-6">
+                        <div class="w-full flex-1">
+                            <select v-model="form_order.status" class=" border-gray-400 rounded-md shadow-sm  focus:border-gray-100   w-full p-2">
+                                <option :value="null">Change the Status</option>
+                                <option  value="0">Canceled</option>
+                                <option  value="1">Received</option>
+                                <option  value="2">Planed</option>
+                                <option  value="3">Delivered</option>
+                                <option  value="4">Completed</option>
+                                <option  value="5">Refunded</option>
+                            </select>
+                            
+                        </div>
 
-            <div class="mt-4 flex flex-row mx-2 border-b py-2">
-                <div class=" w-1/3">
-                    <BreezeLabel  value="Place"/>
+                        <button class=" text-sm text-green-500 hover:text-green-700 p-2 hover:bg-green-200 rounded border border-green-500 max-h-12" @click="changeOrderStatuts()">Select Driver</button>
+                    </div>
+
                 </div>
-                <div class="pl-3 flex-1">
-                    <span class=" font-semibold text-right"> {{order.recipient_place}}</span>
-                </div>
-            </div>
-
-
-
 
 
         </div>
 
 
-        <!-- hover side information -->
+        <!-- other side information -->
         <div class=" flex-1 pl-3 ">
 
            <div class="rounded border py-4 px-3 bg-gray-100">
@@ -112,7 +166,6 @@
                     <table class="w-full whitespace-no-wrap">
                         <thead>
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
-
                             <th class="px-4 py-3">name</th>
                             <th class="px-4 py-3">slug</th>
                             <th class="px-4 py-3">Status</th>
@@ -124,8 +177,9 @@
                                         <td class="pl-3 text-sm font-semibold">{{product?.pivot.qty}} X </td>
                                         <td class=" text-sm font-semibold">{{product.name}}  </td>
                                         <td class=" text-sm font-semibold">{{product?.pivot.cprice}}</td>
-                                        <td>  <button class=" text-sm text-red-500 hover:text-red-700 hover:bg-red-200 border border-red-500  px-2 rounded mb-1 " @click="remove_feature(product.id)">-</button></td>
-
+                                        <td>
+                                            <button class=" text-sm text-red-500 hover:text-red-700 hover:bg-red-200 border border-red-500  px-2 rounded mb-1 " @click="remove_feature(product.id)">-</button>
+                                        </td>
                                     </tr>
                         </tbody>
                     </table>
@@ -145,37 +199,28 @@
                   <ul>
                     <li v-for="delivery in deliveries " :key="delivery.id" class="mb-3 border-b flex flex-row justify-between">
                       <span class=" text-sm">{{delivery?.driver.user.name}}</span>
-                      <span class=" text-sm">{{delivery?.created_at}}</span>
+                      <span class=" text-sm">{{(delivery?.deliver_before).substring(10, 0)}}</span>
+                      <span class=" p-1 text-xs bg-red-100 text-red-500 rounded h-6" v-if="Number(delivery?.status)   ==3">Missed</span>
+                      <span class=" p-1 text-xs bg-blue-100 text-blue-500 rounded h-6" v-if="Number(delivery?.status) ==1">Planned</span>
+                      <span class=" p-1 text-xs bg-green-100 text-green-500 rounded h-6" v-if="Number(delivery?.status) == 2">Delivered</span>
                     </li>
                   </ul>
                 </div>
-                <div class=" w-full" v-if="Number(order.status) <3">
+                <div class=" w-full" v-if="Number(order.status) < 3">
                     <div class="mt-6  flex flex-row justify-between gap-8">
                         <div class="w-full flex-1">
-                            <select v-model="form_deliver.driver_id" class=" border-gray-400 rounded-md shadow-sm  focus:border-green-200  focus:ring-1 focus:ring-green-200 focus:ring-opacity-50 focus-within:text-green-400 w-full p-2">
+                            <select v-model="form_deliver.driver_id" class=" border-gray-400 rounded-md shadow-sm  focus:border-gray-100  focus:ring-1 focus:ring-green-200 focus:ring-opacity-50 focus-within:text-green-400 w-full p-2">
                                 <option :value="null">Attach driver</option>
                                 <option v-for="driver in drivers " :key="driver.id" :value="driver.id">{{driver.user.name}} - {{driver.vehicule_model}}</option>
                             </select>
                             <div class="mt-4 flex flex-row">
                                 <div class=" w-1/3">
-                                <BreezeLabel for="deliver_before" value="Date"/>
-                                <BreezeInput
-                                    id="deliver_before"
-                                    type="date"
-                                    class="block mt-1 w-full"
-                                    v-model="form_deliver.deliver_before"
-                                    required
-                                />
+                                  <BreezeLabel for="deliver_before" value="Date"/>
+                                  <BreezeInput id="deliver_before" type="date" class="block mt-1 w-full" v-model="form_deliver.deliver_before" required />
                                 </div>
                                 <div class="pl-3 w-2/3">
-                                <BreezeLabel for="delivery_comment" value="Comment"/>
-                                <BreezeInput
-                                    id="delivery_comment"
-                                    type="text"
-                                    class="block mt-1 w-full"
-                                    v-model="form_deliver.comment"
-                                    required
-                                />
+                                  <BreezeLabel for="delivery_comment" value="Comment"/>
+                                  <BreezeInput id="delivery_comment" type="text" class="block mt-1 w-full"  v-model="form_deliver.comment"  required />
                                 </div>
 
                             </div>
@@ -186,8 +231,6 @@
 
                 </div>
             </div>
-
-
 
 
         </div>
@@ -246,12 +289,11 @@ export default {
         id_category: null,
       }),
 
-      form_feature: useForm({
-        _method: 'post',
+      form_order: useForm({
+        _method: 'put',
         id_order: this.order.id,
-        name: null,
-        description: null,
-        id_feature : null,
+        status: this.order.status,
+        type:null,
       }),
 
       form_deliver: useForm({
@@ -263,7 +305,7 @@ export default {
       }),
       value:null,
       new_category:null,
-
+      tabs:1,
       preview:null,
     };
   },
@@ -274,7 +316,9 @@ export default {
       this.form.post(this.route('orders.update',this.order.id), {
         onSuccess: () => {},
         onError: () => {alert("Sorry something went Wrong")},
+        preserveScroll: false,
       });
+
     },
 
     plan_delivery()
@@ -285,8 +329,21 @@ export default {
       this.form_deliver.post(this.route('delivery.store'), {
         onSuccess: () => {this.form_deliver.driver_id=this.form_deliver.deliver_before= null;},
         onError: () => {},
+        preserveScroll: false,
       });
       this.new_category=null;
+    },
+    
+    changeOrderStatuts()
+    {
+      if(!this.form_order.status || isNaN (Number(this.form_order.status))) return;
+      
+      this.form_order.type=1;
+      this.form_order.post(this.route('order.update', this.order.id), {
+        onSuccess: () => { document.documentElement.scrollTop = 0;},
+        onError: () => {document.documentElement.scrollTop = 0;},
+        preserveScroll: true 
+      });
     },
 
     filesize(size) {
