@@ -112,8 +112,6 @@ class ShopController extends Controller
         $order= Order::Where('id',$order)
                     ->with(['products'])
                     ->firstOrFail();
-
-        usleep(100000);
         $request->session()->forget('last_order');
         $request->session()->forget('recipientInfo');
 
@@ -129,10 +127,11 @@ class ShopController extends Controller
     }
     
     
-    public function tracking($key, $id){
-
+    public function tracking( $id,$key){
+       // dd($id);
         $order= Order::Where('id',$id)
                     ->Where('sha_key','like',"%".$key."%")
+                    //->orWhere('sha_key',$key)
                     ->with(['products.media'])
                     ->firstOrFail();
         $products=$order->products()->with(['media'])->get();

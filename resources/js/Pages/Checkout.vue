@@ -75,11 +75,13 @@
  
         <div class="px-4 py-2 -mx-3">
           <div class="mx-3">
-            <span class="font-semibold text-green-500">Error</span>
+            <span class="font-semibold text-red-500">Error</span>
             <p class="text-sm text-gray-600">{{ $page.props.flash.success }}</p>
           </div>
         </div>
       </div>
+
+      <BreezeValidationErrors class="mb-4 bg-red-50 p-3 border rounded "/>
 
 	<h2 class="text-2xl font-semibold">Fill your Payment information</h2>
     <hr>
@@ -293,12 +295,15 @@
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Footer from '@/Components/Footer.vue';
 import {loadStripe} from '@stripe/stripe-js';
+import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 
 export default {
   components: {
     Head,
     Link,
     Footer,
+    BreezeValidationErrors,
+    
   },
   props: {
     canLogin: Boolean,
@@ -323,6 +328,8 @@ export default {
         address: "",//
         zip_code:"",//
         comment:"",//
+        city:"",//
+        state:"",//
         basic:true,
         tracking:false,
         premium:false,
@@ -338,9 +345,14 @@ export default {
   methods:{
     checkout(){
       
-        this.form.post(this.route('order.purchase'));
-        this.processingPayment=false;
-        this.paymentText="PAY NOW";
+        this.form.post(this.route('order.purchase'),{
+           onSuccess: () => {},
+            onError: () => {
+              this.processingPayment=false;
+              this.paymentText="PAY NOW";
+              },
+        });
+        
         
     },
 
@@ -362,7 +374,8 @@ export default {
             || String(this.form.address).length<4 || String(this.form.zip_code).length<5  )
             {
                 alert("Some value need to be filled Right");
-                return};
+                //return
+                };
 
       this.processingPayment=true;
       this.paymentText="Processing";
@@ -384,7 +397,7 @@ export default {
       if(error){
         this.processingPayment=false;
         this.paymentText="PAY NOW";
-        alert("Something Went wrong with Payment Information");
+        alert(error.message);
         console.log(error);
       }else{
         
@@ -400,6 +413,8 @@ export default {
 
   mounted() {
   this.$nextTick(async function () {
+    
+
     this.calcutePrice();
     this.stripe= await loadStripe(this.stripeKey);
     

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateCustumerAction;
+use App\Actions\MakeOrderAction;
 use App\Models\User;
+use App\Notifications\NewOrderReceived;
 use Inertia\Inertia;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Support\Str;
@@ -24,80 +27,37 @@ class UserController extends Controller
         
         //chech if $total = Cart::getTotal()+$this->calculPrice($infoRecipient) == $request->input('total') frontend 
 
-        //create user
         
+        $user= CreateCustumerAction::handle($request);
 
-
-        $user= User::firstOrCreate([
-                'email'=>$request->input('email')
-            ],
-            [
-                'password'=>Hash::make(Str::random(12)),
-                'name'=>$request->input('name'),
-                'address'=>$request->input('email'),
-                'contact'=>$request->input('contact'),
-                'city'=>$request->input('city'),
-                'state'=>$request->input('state'),
-                'zip_code'=>$request->input('zip_code'),
-                'admoo'=>0,
-            ]
-            );
-
-        //charge user
         try{
-            $payment= $user->charge(
-                $request->input('total'),
-                $request->input('payment_id')
-            );
+                $payment= $user->charge(
+                    $request->input('total'),
+                    $request->input('payment_id')
+                );
 
-            $payment= $payment->asStripePaymentIntent();
-            $order= $user->orders()
-                ->create([
-                    'transaction_id'=>$payment->charges->data[0]->id,
-                    'total'=>$payment->charges->data[0]->amount,
-                    'status'=>1, // 1 payed, 2 process, 3,on way to deliver, 4 delivered, 5 canceld, 6 remboused
-                    'sha_key'=>substr(sha1(time()),20) ,
-                    'recipient_name'=>$infoRecipient['recipient_name']." ".$infoRecipient['recipient_surname'] ,
-                    'recipient_contact'=>$infoRecipient['recipient_contact'] ,
-                    'recipient_address'=>$infoRecipient['recipient_address'] ,
-                    'recipient_state'=>"Quebec" , //$infoRecipient['recipient_state'] ,
-                    'recipient_zip_code'=>$infoRecipient['recipient_zip_code'] ,
-                    'recipient_comment'=>$infoRecipient['recipient_comment'] ,
-                    'recipient_basic'=>$infoRecipient['recipient_basic']?1500:0 ,
-                    'recipient_tracking'=>$infoRecipient['recipient_tracking']?200:0 ,
-                    'recipient_premium'=>$infoRecipient['recipient_premium']?1500:0 ,
-                    'recipient_sexe'=>$infoRecipient['recipient_sexe'] ,
-                    'recipient_place'=>$infoRecipient['recipient_place'] ,
-                    'recipient_own_product'=>0,//$infoRecipient['recipient_premium']?1000:0 ,
+                $cart = Cart::getContent();
+                $payment= $payment->asStripePaymentIntent();
+                
+                $order = MakeOrderAction::handle($infoRecipient, $payment, $user, $cart);
+    
+                $request->session()->put("last_order", $order->id);
+                $request->session()->forget('recipientInfo');
+                $request->session()->save();
 
-                ]);
-            
-            $cart = Cart::getContent();
-            
-            foreach($cart as $item){
-                $order->products()
-                    ->attach($item->id,["qty"=>$item->quantity,"cprice"=>$item->price ]);
-            }
+                $admin= User::first();
+                $admin->notify(new NewOrderReceived($order));
 
-            //$order->load('products');
-
-            
-            $request->session()->put("last_order", $order->id);
-            $request->session()->forget('recipientInfo');
-            $request->session()->save();
-
-            //send message
-            return redirect()->route('order.sumary');
+                return redirect()->route('order.sumary');
 
 
         }
         catch(\Exception $e){
             // throw exception
             $message_error= $e->getMessage();
-            return redirect()->back(/*'categories.index'*/)->with('success',"SOMETHING went wrong with your payment.");
+            return redirect()->back()->with('success',"SOMETHING went wrong with your payment. ". $message_error);
         }
 
-        //create order and fetch all cart info in order product
        
 
     }
