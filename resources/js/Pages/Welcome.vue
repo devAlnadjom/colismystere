@@ -40,29 +40,26 @@
       </div>
 
       <p class="mx-auto lg:w-1/4 flex flex-row justify-between pb-5 ">
-        <Link :href="route('login')" class="text-sm text-gray-700 underline">
+        <Link :href="route('home')" class="text-sm text-gray-700 underline">
           Shop
         </Link>
 
-        <Link
-          :href="route('cart.show')"
-          class="ml-4 text-sm text-gray-700 underline"
-        >
+        <Link :href="route('cart.show')" class="ml-4 text-sm text-gray-700 underline"  >
           Cart
         </Link>
 
-        <Link
-          :href="route('login')"
-          class="text-sm text-gray-700 underline hover:text-pink-600"
-        >
+        <Link  :href="route('shop.how')" class="ml-4 text-sm text-gray-700 underline hover:text-pink-600"  >
           About
         </Link>
       </p>
-      <section class="text-gray-600 body-font bg-pink-50">
+<section class="text-gray-600 body-font -bg-pink-50 bg-cover" style="background-image:url('https://images.pexels.com/photos/776635/pexels-photo-776635.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); -background-position:left bottom;">
   <div class="container px-5 py-24 mx-auto">
     <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-      <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">Already Have your <b class=" text-pink-300">Mysterious Gift</b>? Let us deliver it for you by the best way.</h1>
-      <button class="flex-shrink-0 text-white bg-pink-400 border-0 py-2 px-8 focus:outline-none hover:bg-pink-500 rounded text-lg mt-10 sm:mt-0">Process</button>
+      <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">Choose your <b class=" text-pink-300">Mysterious Gift</b>? Let us deliver it for you by the best way.</h1>
+      <!--button class="flex-shrink-0 text-white bg-pink-400 border-0 py-2 px-8 focus:outline-none hover:bg-pink-500 rounded text-lg mt-10 sm:mt-0">Process</button-->
+      <Link :href="route('shop.how')" class="flex-shrink-0 text-white bg-pink-400 border-0 py-2 px-8 focus:outline-none hover:bg-pink-500 rounded text-lg mt-10 sm:mt-0">
+                  How it works?
+      </Link>
     </div>
   </div>
 </section>
@@ -71,16 +68,8 @@
           <div class="flex flex-wrap -m-4">
             <div v-for="product in products.data" :key="product.id" class="lg:w-1/3 md:w-1/2 p-4 w-full">
               <a class="block relative h-48 rounded overflow-hidden">
-                <img v-if="!product.media[0]"
-                  alt="ecommerce"
-                  class="object-cover object-center w-full h-full block"
-                  src="https://dummyimage.com/420x260"
-                />
-                <img v-if="product.media[0]"
-                  alt="ecommerce"
-                  class="object-cover object-center w-full h-full block"
-                  :src="makeimg(product.media[0])"
-                />
+                <img v-if="!product.media[0]" alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260"  />
+                <img v-if="product.media[0]"  alt="ecommerce" class="object-cover object-center w-full h-full block"  :src="makeimg(product.media[0])" />
               </a>
               <div class="mt-4">
                   <div class="flex flex-wrap">

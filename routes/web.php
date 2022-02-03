@@ -24,6 +24,7 @@ use App\Http\Controllers\DriverController;
 |
 */
 
+
 Route::post('/shop/purchase', [UserController::class, 'purchase'])->name('order.purchase');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.store');
 Route::post('/cart/update-cart', [CartController::class, 'updateCart'])->name('cart.update');
@@ -31,6 +32,7 @@ Route::post('/cart/remove', [CartController::class, 'removeCart'])->name('cart.r
 Route::post('/cart/clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.show');
 
+Route::get('/shop/how_it_works', [ShopController::class, 'howItWorks'])->name('shop.how');
 Route::get('/order/tracking/{id}/{key}',[ShopController::class, 'tracking'] )->name('order.tracking');
 Route::get('/order/sumary',[ShopController::class, 'sumary'] )->name('order.sumary');
 Route::get('/order/checkout',[ShopController::class, 'checkout'] )->name('order.checkout');

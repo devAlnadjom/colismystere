@@ -128,14 +128,12 @@ class ShopController extends Controller
     
     
     public function tracking( $id,$key){
-       // dd($id);
+        
         $order= Order::Where('id',$id)
                     ->Where('sha_key','like',"%".$key."%")
-                    //->orWhere('sha_key',$key)
                     ->with(['products.media'])
                     ->firstOrFail();
         $products=$order->products()->with(['media'])->get();
-       // dd($products);
         
 
         return Inertia::render('Order_tracking', [
@@ -143,6 +141,19 @@ class ShopController extends Controller
             'canRegister' => Route::has('register'),
             'order' =>$order,
             'products'=>$products,
+            
+        ]);
+
+    }
+    
+
+    public function howItWorks(){
+
+        return Inertia::render('How_it_works', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
             
         ]);
 
